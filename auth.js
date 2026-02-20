@@ -7,6 +7,7 @@
     
     // Check if already authenticated
     if (sessionStorage.getItem(STORAGE_KEY) === 'true') {
+        window.dispatchEvent(new CustomEvent('auth-complete'));
         return; // Already authenticated, don't show gate
     }
     
@@ -100,6 +101,8 @@
                 Array.from(document.body.children).forEach(child => {
                     child.style.display = '';
                 });
+                // Signal that auth is complete
+                window.dispatchEvent(new CustomEvent('auth-complete'));
             } else {
                 errorMsg.style.display = 'block';
                 passwordInput.value = '';

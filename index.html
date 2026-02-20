@@ -496,8 +496,8 @@
             if (e.key === 'ArrowLeft') prevSlide();
         });
         
-        // Initialize on load
-        initCarousel();
+        // Initialize after auth completes
+        window.addEventListener('auth-complete', initCarousel, { once: true });
     </script>
     <script src="auth.js"></script>
 </body>
