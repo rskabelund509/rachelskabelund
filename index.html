@@ -6,7 +6,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;500;600&display=swap" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
     <title>Rachel Skabelund</title>
     <style>
         * {
@@ -414,58 +413,32 @@
             document.body.style.overflow = document.body.style.overflow === 'hidden' ? '' : 'hidden';
         }
         
-        // QR Carousel
-        const baseUrl = 'https://rachelskabelund.vercel.app';
+        // QR Carousel - using pre-generated static images
         const pages = [
-            { name: 'Home', path: '/', file: 'index.html' },
-            { name: 'Patient (Alex)', path: '/alex.html', file: 'alex.html' },
-            { name: 'AI Chat', path: '/chat.html', file: 'chat.html' },
-            { name: 'AI Guide', path: '/ai-guide.html', file: 'ai-guide.html' }
+            { name: 'Home', url: 'https://rachelskabelund.vercel.app/', qr: 'images/qr-home.png' },
+            { name: 'Patient (Alex)', url: 'https://rachelskabelund.vercel.app/alex.html', qr: 'images/qr-alex.png' },
+            { name: 'AI Chat', url: 'https://rachelskabelund.vercel.app/chat.html', qr: 'images/qr-chat.png' },
+            { name: 'AI Guide', url: 'https://rachelskabelund.vercel.app/ai-guide.html', qr: 'images/qr-guide.png' }
         ];
         
         let currentSlide = 0;
         
-        // Generate QR codes
-        async function initCarousel() {
+        function initCarousel() {
             const display = document.getElementById('qrDisplay');
             const dotsContainer = document.getElementById('carouselDots');
             
-            for (let i = 0; i < pages.length; i++) {
-                const page = pages[i];
-                const url = baseUrl + page.path;
-                
+            pages.forEach((page, i) => {
                 // Create slide
                 const slide = document.createElement('div');
                 slide.className = 'qr-slide' + (i === 0 ? ' active' : '');
                 slide.innerHTML = `
-                    <div class="qr-code" id="qr-${i}"></div>
+                    <div class="qr-code">
+                        <img src="${page.qr}" alt="QR code for ${page.name}" width="200" height="200">
+                    </div>
                     <div class="qr-label">${page.name}</div>
-                    <div class="qr-url">${url}</div>
+                    <div class="qr-url">${page.url}</div>
                 `;
                 display.appendChild(slide);
-                
-                // Generate QR code (callback style for browser CDN)
-                const qrContainer = document.getElementById(`qr-${i}`);
-                QRCode.toDataURL(url, {
-                    width: 200,
-                    margin: 1,
-                    color: {
-                        dark: '#002E5D',
-                        light: '#FFFFFF'
-                    }
-                }, function(err, dataUrl) {
-                    if (err) {
-                        console.error('QR generation failed:', err);
-                        qrContainer.textContent = 'QR failed';
-                        return;
-                    }
-                    const img = document.createElement('img');
-                    img.src = dataUrl;
-                    img.alt = `QR code for ${page.name}`;
-                    img.style.width = '200px';
-                    img.style.height = '200px';
-                    qrContainer.appendChild(img);
-                });
                 
                 // Create dot
                 const dot = document.createElement('button');
@@ -473,7 +446,7 @@
                 dot.onclick = () => goToSlide(i);
                 dot.setAttribute('aria-label', `Go to ${page.name}`);
                 dotsContainer.appendChild(dot);
-            }
+            });
         }
         
         function goToSlide(index) {
