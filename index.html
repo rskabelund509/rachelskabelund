@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;500;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
     <title>Rachel Skabelund</title>
     <style>
         * {
@@ -18,10 +19,11 @@
             --byu-navy: #002E5D;
             --byu-white: #FFFFFF;
             --byu-light-gray: #F5F5F5;
+            --warm-gray: #F5F5F3;
         }
         
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            font-family: 'Libre Franklin', -apple-system, BlinkMacSystemFont, sans-serif;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
@@ -37,6 +39,7 @@
             justify-content: space-between;
             box-shadow: 0 2px 10px rgba(0, 46, 93, 0.2);
             position: relative;
+            z-index: 100;
         }
         
         .header-brand {
@@ -52,13 +55,12 @@
         
         .header-text {
             color: var(--byu-white);
-            font-family: 'Libre Franklin', 'Source Sans Pro', -apple-system, sans-serif;
+            font-family: 'Libre Franklin', sans-serif;
             font-size: 1.25rem;
             font-weight: 400;
             letter-spacing: 0.02em;
         }
         
-        /* Hamburger Menu */
         .menu-toggle {
             display: flex;
             flex-direction: column;
@@ -92,7 +94,6 @@
             transform: rotate(-45deg) translate(6px, -6px);
         }
         
-        /* Slide-out Menu */
         .nav-menu {
             position: fixed;
             top: 0;
@@ -161,29 +162,139 @@
         
         .container {
             text-align: center;
-            max-width: 600px;
+            max-width: 500px;
             width: 100%;
         }
         
         h1 {
-            font-size: 3rem;
+            font-size: 2.5rem;
             font-weight: 600;
-            margin-bottom: 0.5rem;
+            margin-bottom: 2rem;
             color: var(--byu-navy);
         }
         
-        .tagline {
-            font-size: 1.25rem;
-            color: #666;
-            font-weight: 400;
-            margin-bottom: 2rem;
+        /* QR Carousel */
+        .qr-carousel {
+            background: var(--byu-white);
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 4px 30px rgba(0, 46, 93, 0.12);
         }
         
-        .card {
-            background: var(--byu-white);
+        .qr-display {
+            position: relative;
+            min-height: 280px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .qr-slide {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .qr-slide.active {
+            display: flex;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        
+        .qr-code {
+            background: white;
+            padding: 1rem;
             border-radius: 12px;
-            padding: 2.5rem;
-            box-shadow: 0 4px 20px rgba(0, 46, 93, 0.1);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            margin-bottom: 1rem;
+        }
+        
+        .qr-code canvas {
+            display: block;
+        }
+        
+        .qr-label {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--byu-navy);
+            margin-bottom: 0.25rem;
+        }
+        
+        .qr-url {
+            font-size: 0.8rem;
+            color: #888;
+            word-break: break-all;
+        }
+        
+        /* Carousel Controls */
+        .carousel-controls {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #eee;
+        }
+        
+        .carousel-btn {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            border: 2px solid var(--byu-navy);
+            background: transparent;
+            color: var(--byu-navy);
+            font-size: 1.25rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .carousel-btn:hover {
+            background: var(--byu-navy);
+            color: white;
+        }
+        
+        .carousel-dots {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .carousel-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #ddd;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .carousel-dot.active {
+            background: var(--byu-navy);
+            transform: scale(1.2);
+        }
+        
+        .carousel-dot:hover {
+            background: #aaa;
+        }
+        
+        .carousel-dot.active:hover {
+            background: var(--byu-navy);
+        }
+        
+        /* Scan instruction */
+        .scan-instruction {
+            font-size: 0.85rem;
+            color: #888;
+            margin-top: 1rem;
         }
         
         footer {
@@ -216,27 +327,31 @@
             }
             
             h1 {
-                font-size: 2rem;
+                font-size: 1.75rem;
+                margin-bottom: 1.5rem;
             }
             
-            .tagline {
-                font-size: 1rem;
-            }
-            
-            .card {
+            .qr-carousel {
                 padding: 1.5rem;
+            }
+            
+            .qr-display {
+                min-height: 240px;
+            }
+            
+            .qr-code {
+                padding: 0.75rem;
+            }
+            
+            .carousel-btn {
+                width: 40px;
+                height: 40px;
+                font-size: 1rem;
             }
             
             .nav-menu {
                 width: 260px;
                 right: -260px;
-            }
-        }
-        
-        /* Tablet */
-        @media (min-width: 641px) and (max-width: 1024px) {
-            h1 {
-                font-size: 2.5rem;
             }
         }
     </style>
@@ -267,8 +382,22 @@
     
     <main>
         <div class="container">
-            <div class="card">
-                <h1>Rachel Skabelund</h1>
+            <h1>Rachel Skabelund</h1>
+            
+            <div class="qr-carousel">
+                <div class="qr-display" id="qrDisplay">
+                    <!-- QR slides will be generated by JavaScript -->
+                </div>
+                
+                <div class="carousel-controls">
+                    <button class="carousel-btn" onclick="prevSlide()" aria-label="Previous">←</button>
+                    <div class="carousel-dots" id="carouselDots">
+                        <!-- Dots will be generated by JavaScript -->
+                    </div>
+                    <button class="carousel-btn" onclick="nextSlide()" aria-label="Next">→</button>
+                </div>
+                
+                <p class="scan-instruction">Scan to visit page on your device</p>
             </div>
         </div>
     </main>
@@ -284,6 +413,91 @@
             document.querySelector('.overlay').classList.toggle('active');
             document.body.style.overflow = document.body.style.overflow === 'hidden' ? '' : 'hidden';
         }
+        
+        // QR Carousel
+        const baseUrl = 'https://rachelskabelund.vercel.app';
+        const pages = [
+            { name: 'Home', path: '/', file: 'index.html' },
+            { name: 'Patient (Alex)', path: '/alex.html', file: 'alex.html' },
+            { name: 'AI Chat', path: '/chat.html', file: 'chat.html' },
+            { name: 'AI Guide', path: '/ai-guide.html', file: 'ai-guide.html' }
+        ];
+        
+        let currentSlide = 0;
+        
+        // Generate QR codes
+        async function initCarousel() {
+            const display = document.getElementById('qrDisplay');
+            const dotsContainer = document.getElementById('carouselDots');
+            
+            for (let i = 0; i < pages.length; i++) {
+                const page = pages[i];
+                const url = baseUrl + page.path;
+                
+                // Create slide
+                const slide = document.createElement('div');
+                slide.className = 'qr-slide' + (i === 0 ? ' active' : '');
+                slide.innerHTML = `
+                    <div class="qr-code" id="qr-${i}"></div>
+                    <div class="qr-label">${page.name}</div>
+                    <div class="qr-url">${url}</div>
+                `;
+                display.appendChild(slide);
+                
+                // Generate QR code
+                QRCode.toCanvas(document.createElement('canvas'), url, {
+                    width: 200,
+                    margin: 0,
+                    color: {
+                        dark: '#002E5D',
+                        light: '#FFFFFF'
+                    }
+                }, function(error, canvas) {
+                    if (!error) {
+                        document.getElementById(`qr-${i}`).appendChild(canvas);
+                    }
+                });
+                
+                // Create dot
+                const dot = document.createElement('button');
+                dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+                dot.onclick = () => goToSlide(i);
+                dot.setAttribute('aria-label', `Go to ${page.name}`);
+                dotsContainer.appendChild(dot);
+            }
+        }
+        
+        function goToSlide(index) {
+            const slides = document.querySelectorAll('.qr-slide');
+            const dots = document.querySelectorAll('.carousel-dot');
+            
+            slides[currentSlide].classList.remove('active');
+            dots[currentSlide].classList.remove('active');
+            
+            currentSlide = index;
+            if (currentSlide >= slides.length) currentSlide = 0;
+            if (currentSlide < 0) currentSlide = slides.length - 1;
+            
+            slides[currentSlide].classList.add('active');
+            dots[currentSlide].classList.add('active');
+        }
+        
+        function nextSlide() {
+            goToSlide(currentSlide + 1);
+        }
+        
+        function prevSlide() {
+            goToSlide(currentSlide - 1);
+        }
+        
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight') nextSlide();
+            if (e.key === 'ArrowLeft') prevSlide();
+        });
+        
+        // Initialize on load
+        initCarousel();
     </script>
     <script src="auth.js"></script>
 </body>
