@@ -18,14 +18,45 @@
             --byu-navy: #002E5D;
             --byu-navy-light: #003d7a;
             --byu-white: #FFFFFF;
-            --cream: #FAFAFA;
-            --warm-gray: #F5F5F3;
-            --text-primary: #1a1a1a;
-            --text-secondary: #555;
+            --gold: #C4A55A;
+
+            --bg-cream: #FAFAF8;
+            --bg-warm: #F5F4F2;
+            --bg-light: #F5F4F2;
+            --border-light: #e8e6e3;
+
+            --text-primary: #1a1a2e;
+            --text-secondary: #6b6b7b;
             --text-muted: #888;
-            --accent: #002E5D;
+
+            --accent: var(--byu-navy);
             --accent-light: #e8eef5;
-            --gold: #C4A35A;
+            --cream: var(--bg-cream);
+            --warm-gray: var(--bg-warm);
+            --byu-light-gray: var(--bg-light);
+
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
+            --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --shadow-lg: 0 8px 30px rgba(0, 0, 0, 0.12);
+            --shadow-hover: 0 12px 40px rgba(0, 0, 0, 0.15);
+
+            --transition-fast: 0.15s ease;
+            --transition-med: 0.25s ease;
+            --transition-slow: 0.4s ease;
+
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+
+            --space-xs: 0.25rem;
+            --space-sm: 0.5rem;
+            --space-md: 1rem;
+            --space-lg: 1.5rem;
+            --space-xl: 2rem;
+
+            --min-touch-target: 44px;
+            --focus-ring: #C4A55A;
+            --focus-shadow: 0 0 0 3px rgba(196, 165, 90, 0.32);
         }
         
         html {
@@ -37,6 +68,16 @@
             color: var(--text-primary);
             line-height: 1.7;
             background: var(--byu-white);
+        }
+
+        a:focus-visible,
+        button:focus-visible,
+        input:focus-visible,
+        textarea:focus-visible,
+        summary:focus-visible {
+            outline: 3px solid var(--focus-ring);
+            outline-offset: 2px;
+            box-shadow: var(--focus-shadow);
         }
         
         /* Header */
@@ -64,6 +105,7 @@
             display: flex;
             align-items: center;
             gap: 1rem;
+            min-height: var(--min-touch-target);
         }
         
         .logo {
@@ -83,12 +125,14 @@
             display: flex;
             flex-direction: column;
             justify-content: space-around;
-            width: 28px;
-            height: 24px;
+            width: var(--min-touch-target);
+            height: var(--min-touch-target);
+            min-width: var(--min-touch-target);
+            min-height: var(--min-touch-target);
             background: transparent;
             border: none;
             cursor: pointer;
-            padding: 0;
+            padding: 10px 8px;
             z-index: 1001;
         }
         
@@ -141,8 +185,10 @@
             color: var(--byu-white);
             text-decoration: none;
             font-size: 1.2rem;
+            min-height: var(--min-touch-target);
             padding: 0.75rem 0;
-            display: block;
+            display: flex;
+            align-items: center;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             transition: all 0.2s ease;
         }
@@ -278,7 +324,95 @@
             max-width: 800px;
             margin: 0 auto;
         }
-        
+
+        .guide-toc {
+            background: rgba(255, 255, 255, 0.95);
+            border: 1px solid rgba(0, 46, 93, 0.12);
+            border-radius: 14px;
+            box-shadow: 0 10px 24px rgba(0, 46, 93, 0.12);
+        }
+
+        .guide-toc-title {
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--byu-navy);
+            padding: 0.9rem 1rem 0.55rem;
+        }
+
+        .toc-list {
+            list-style: none;
+            margin: 0;
+            padding: 0 0.6rem 0.7rem;
+            max-height: calc(100vh - 180px);
+            overflow: auto;
+        }
+
+        .toc-item {
+            margin: 0;
+        }
+
+        .toc-link {
+            display: flex;
+            align-items: center;
+            min-height: var(--min-touch-target);
+            border-radius: 10px;
+            padding: 0.45rem 0.6rem;
+            color: var(--text-primary);
+            text-decoration: none;
+            font-size: 0.86rem;
+            line-height: 1.35;
+            transition: background var(--transition-fast), color var(--transition-fast);
+        }
+
+        .toc-link:hover {
+            background: rgba(0, 46, 93, 0.08);
+        }
+
+        .toc-link.active {
+            background: rgba(0, 46, 93, 0.14);
+            color: var(--byu-navy);
+            font-weight: 600;
+        }
+
+        .guide-toc-desktop {
+            position: fixed;
+            top: 96px;
+            left: max(0.75rem, calc((100vw - 1200px) / 2));
+            width: 190px;
+            z-index: 980;
+        }
+
+        .guide-toc-mobile {
+            display: none;
+            position: sticky;
+            top: 82px;
+            z-index: 950;
+            margin: 1rem 1rem 0;
+            overflow: hidden;
+        }
+
+        .guide-toc-mobile summary {
+            list-style: none;
+            cursor: pointer;
+            min-height: var(--min-touch-target);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.9rem 1rem;
+            font-weight: 600;
+            color: var(--byu-navy);
+        }
+
+        .guide-toc-mobile summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .guide-toc-mobile[open] summary {
+            border-bottom: 1px solid rgba(0, 46, 93, 0.12);
+        }
+
         .section-number {
             font-size: 0.8rem;
             font-weight: 600;
@@ -341,6 +475,19 @@
         .callout-gold {
             background: linear-gradient(135deg, #faf6ed 0%, #f5f0e3 100%);
             border-left-color: var(--gold);
+        }
+
+        .citation-format {
+            background: #f7f8fa;
+            border: 1px solid #d9e0e8;
+            border-radius: 12px;
+            padding: 1rem 1.25rem;
+            font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+            font-size: 0.88rem;
+            line-height: 1.6;
+            color: var(--text-primary);
+            word-break: break-word;
+            margin: 1rem 0 0;
         }
         
         /* Code/prompt examples */
@@ -555,6 +702,7 @@
         .use-in-chat-btn {
             display: block;
             width: 100%;
+            min-height: var(--min-touch-target);
             padding: 0.75rem 1rem;
             background: var(--byu-navy);
             color: white;
@@ -768,7 +916,11 @@
         }
         
         .btn {
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: var(--min-touch-target);
+            min-height: var(--min-touch-target);
             background: var(--byu-navy);
             color: var(--byu-white);
             padding: 1rem 2.5rem;
@@ -793,6 +945,47 @@
             text-align: center;
             padding: 2rem;
             font-size: 0.9rem;
+        }
+
+        footer a {
+            color: #ffffff;
+            text-decoration: underline;
+            text-underline-offset: 2px;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+
+            .scroll-indicator,
+            .fade-in {
+                animation: none !important;
+                transform: none !important;
+                opacity: 1 !important;
+            }
+        }
+
+        @media (max-width: 1240px) {
+            .guide-toc-desktop {
+                display: none;
+            }
+
+            .guide-toc-mobile {
+                display: block;
+                margin: 1rem 1.5rem 0;
+            }
+
+            .toc-list {
+                max-height: none;
+            }
         }
         
         /* Mobile responsive */
@@ -833,6 +1026,16 @@
             
             .scroll-indicator {
                 display: none;
+            }
+
+            .guide-toc-mobile {
+                top: 70px;
+                margin: 0.75rem 1rem 0;
+            }
+
+            .guide-toc-mobile summary {
+                padding: 0.8rem 0.9rem;
+                font-size: 0.9rem;
             }
             
             section {
@@ -898,7 +1101,7 @@
             <a href="index.html" class="header-brand">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Brigham_Young_University_medallion.svg/1200px-Brigham_Young_University_medallion.svg.png" alt="BYU Logo" class="logo">
                 <span class="header-text">School of Medicine</span>
-            </div>
+            </a>
             <button class="menu-toggle" aria-label="Menu" onclick="toggleMenu()">
                 <span></span>
                 <span></span>
@@ -919,6 +1122,46 @@
         </ul>
     </nav>
 
+    <nav class="guide-toc guide-toc-desktop" aria-label="AI Guide table of contents">
+        <div class="guide-toc-title">On this page</div>
+        <ul class="toc-list">
+            <li class="toc-item"><a class="toc-link" href="#mirror-mistake">Part 1 · The #1 Mistake</a></li>
+            <li class="toc-item"><a class="toc-link" href="#personal-tutor">Part 2 · AI as Tutor</a></li>
+            <li class="toc-item"><a class="toc-link" href="#model-landscape">Part 3 · Models Guide</a></li>
+            <li class="toc-item"><a class="toc-link" href="#privacy-hipaa">Part 4 · Privacy & HIPAA</a></li>
+            <li class="toc-item"><a class="toc-link" href="#course-resources">Part 5 · Course Resources</a></li>
+            <li class="toc-item"><a class="toc-link" href="#context-window">Part 6 · Context Window</a></li>
+            <li class="toc-item"><a class="toc-link" href="#feed-sources">Part 7 · Feed It Sources</a></li>
+            <li class="toc-item"><a class="toc-link" href="#always-verify">Part 8 · Always Verify</a></li>
+            <li class="toc-item"><a class="toc-link" href="#agency">Part 9 · Agency</a></li>
+            <li class="toc-item"><a class="toc-link" href="#misconceptions">Part 10 · Misconceptions</a></li>
+            <li class="toc-item"><a class="toc-link" href="#prompt-templates">Part 11 · Prompt Templates</a></li>
+            <li class="toc-item"><a class="toc-link" href="#when-not-to-use-ai">Part 12 · When Not to Use AI</a></li>
+            <li class="toc-item"><a class="toc-link" href="#power-user-checklist">Part 13 · Checklist</a></li>
+            <li class="toc-item"><a class="toc-link" href="#responsible-use">Part 14 · Responsible Use</a></li>
+        </ul>
+    </nav>
+
+    <details class="guide-toc guide-toc-mobile">
+        <summary>On this page</summary>
+        <ul class="toc-list">
+            <li class="toc-item"><a class="toc-link" href="#mirror-mistake">Part 1 · The #1 Mistake</a></li>
+            <li class="toc-item"><a class="toc-link" href="#personal-tutor">Part 2 · AI as Tutor</a></li>
+            <li class="toc-item"><a class="toc-link" href="#model-landscape">Part 3 · Models Guide</a></li>
+            <li class="toc-item"><a class="toc-link" href="#privacy-hipaa">Part 4 · Privacy & HIPAA</a></li>
+            <li class="toc-item"><a class="toc-link" href="#course-resources">Part 5 · Course Resources</a></li>
+            <li class="toc-item"><a class="toc-link" href="#context-window">Part 6 · Context Window</a></li>
+            <li class="toc-item"><a class="toc-link" href="#feed-sources">Part 7 · Feed It Sources</a></li>
+            <li class="toc-item"><a class="toc-link" href="#always-verify">Part 8 · Always Verify</a></li>
+            <li class="toc-item"><a class="toc-link" href="#agency">Part 9 · Agency</a></li>
+            <li class="toc-item"><a class="toc-link" href="#misconceptions">Part 10 · Misconceptions</a></li>
+            <li class="toc-item"><a class="toc-link" href="#prompt-templates">Part 11 · Prompt Templates</a></li>
+            <li class="toc-item"><a class="toc-link" href="#when-not-to-use-ai">Part 12 · When Not to Use AI</a></li>
+            <li class="toc-item"><a class="toc-link" href="#power-user-checklist">Part 13 · Checklist</a></li>
+            <li class="toc-item"><a class="toc-link" href="#responsible-use">Part 14 · Responsible Use</a></li>
+        </ul>
+    </details>
+
     <!-- Hero -->
     <section class="hero">
         <div class="hero-content">
@@ -931,9 +1174,9 @@
     </section>
 
     <!-- Section 1: The Mirror -->
-    <section class="section-light">
+    <section class="section-light" id="mirror-mistake">
         <div class="section-inner fade-in">
-            <div class="section-number">Part One</div>
+            <div class="section-number">Part 1</div>
             <h2>The #1 Mistake Everyone Makes</h2>
             <p class="section-subtitle">Why does AI give me generic answers?</p>
             
@@ -958,9 +1201,9 @@
     </section>
 
     <!-- Section 2: Personal Tutor -->
-    <section class="section-cream">
+    <section class="section-cream" id="personal-tutor">
         <div class="section-inner fade-in">
-            <div class="section-number">Part Two</div>
+            <div class="section-number">Part 2</div>
             <h2>AI as Your Personal Tutor</h2>
             <p class="section-subtitle">Accelerate your learning — don't skip it</p>
             
@@ -1022,9 +1265,9 @@
     </section>
 
     <!-- Section 3: Not All AI -->
-    <section class="section-light">
+    <section class="section-light" id="model-landscape">
         <div class="section-inner fade-in">
-            <div class="section-number">Part Three</div>
+            <div class="section-number">Part 3</div>
             <h2>Not All AI Is Created Equal</h2>
             <p class="section-subtitle">A comprehensive guide to current models</p>
             
@@ -1132,9 +1375,9 @@
     </section>
 
     <!-- Section: Cloud vs Local / HIPAA -->
-    <section class="section-cream">
+    <section class="section-cream" id="privacy-hipaa">
         <div class="section-inner fade-in">
-            <div class="section-number">Part Four</div>
+            <div class="section-number">Part 4</div>
             <h2>Cloud vs Local: Privacy & HIPAA</h2>
             <p class="section-subtitle">Understanding where your data goes — and why it matters</p>
             
@@ -1190,9 +1433,9 @@
     </section>
 
     <!-- Section: Course Resources -->
-    <section class="section-light">
+    <section class="section-light" id="course-resources">
         <div class="section-inner fade-in">
-            <div class="section-number">Course Resources</div>
+            <div class="section-number">Part 5</div>
             <h2>Your AI Access for This Course</h2>
             <p class="section-subtitle">Tools provided for your learning</p>
             
@@ -1220,9 +1463,9 @@
     </section>
 
     <!-- Section 6: Context Window -->
-    <section class="section-cream">
+    <section class="section-cream" id="context-window">
         <div class="section-inner fade-in">
-            <div class="section-number">Part Four</div>
+            <div class="section-number">Part 6</div>
             <h2>The Context Window</h2>
             <p class="section-subtitle">Your secret weapon for better responses</p>
             
@@ -1251,9 +1494,9 @@
     </section>
 
     <!-- Section 7: Feed It Sources -->
-    <section class="section-light">
+    <section class="section-light" id="feed-sources">
         <div class="section-inner fade-in">
-            <div class="section-number">Part Seven</div>
+            <div class="section-number">Part 7</div>
             <h2>Feed It Sources, Get Better Answers</h2>
             <p class="section-subtitle">AI doesn't know what it doesn't know</p>
             
@@ -1285,9 +1528,9 @@
     </section>
 
     <!-- Section 8: Verify -->
-    <section class="section-cream">
+    <section class="section-cream" id="always-verify">
         <div class="section-inner fade-in">
-            <div class="section-number">Part Six</div>
+            <div class="section-number">Part 8</div>
             <h2>Always Verify</h2>
             <p class="section-subtitle">The trust but verify rule</p>
             
@@ -1318,9 +1561,9 @@
     </section>
 
     <!-- Section 9: Agency -->
-    <section class="agency-section">
+    <section class="agency-section" id="agency">
         <div class="section-inner fade-in">
-            <div class="section-number" style="color: rgba(255,255,255,0.6);">Part Seven</div>
+            <div class="section-number" style="color: rgba(255,255,255,0.6);">Part 9</div>
             <h2>Your Agency Is Sacred</h2>
             <p class="section-subtitle">Don't outsource it to a machine</p>
             
@@ -1379,9 +1622,9 @@
     </section>
 
     <!-- Section 10: Misconceptions -->
-    <section class="section-light">
+    <section class="section-light" id="misconceptions">
         <div class="section-inner fade-in">
-            <div class="section-number">Part Ten</div>
+            <div class="section-number">Part 10</div>
             <h2>Common Misconceptions</h2>
             <p class="section-subtitle">Myths that hold students back</p>
             
@@ -1424,10 +1667,10 @@
         </div>
     </section>
 
-    <!-- Section 12: Prompt Templates -->
-    <section class="section-cream">
+    <!-- Section 11: Prompt Templates -->
+    <section class="section-cream" id="prompt-templates">
         <div class="section-inner fade-in">
-            <div class="section-number">Part Nine</div>
+            <div class="section-number">Part 11</div>
             <h2>Prompt Templates for Med Students</h2>
             <p class="section-subtitle">Copy, paste, and customize these for instant results</p>
             
@@ -1478,9 +1721,9 @@
     </section>
 
     <!-- Section 12: When NOT to Use AI -->
-    <section class="section-light">
+    <section class="section-light" id="when-not-to-use-ai">
         <div class="section-inner fade-in">
-            <div class="section-number">Part Ten</div>
+            <div class="section-number">Part 12</div>
             <h2>When NOT to Use AI</h2>
             <p class="section-subtitle">Knowing when to step away is as important as knowing how to use it</p>
             
@@ -1542,9 +1785,9 @@
     </section>
 
     <!-- Section 13: Checklist -->
-    <section class="section-cream">
+    <section class="section-cream" id="power-user-checklist">
         <div class="section-inner fade-in">
-            <div class="section-number">Quick Reference</div>
+            <div class="section-number">Part 13</div>
             <h2>The Power User Checklist</h2>
             <p class="section-subtitle">Use this every time you interact with AI</p>
             
@@ -1578,6 +1821,35 @@
         </div>
     </section>
 
+    <!-- Responsible Use & Citation -->
+    <section class="section-light" id="responsible-use">
+        <div class="section-inner fade-in">
+            <div class="section-number">Part 14</div>
+            <h2>Responsible Use & Citation</h2>
+            <p class="section-subtitle">Use AI transparently, ethically, and in ways that strengthen your own clinical reasoning.</p>
+
+            <div class="callout">
+                <p><strong>AAMC principles summary:</strong> Use AI to augment learning (not replace your judgment), protect privacy and confidentiality, evaluate outputs for bias and inaccuracy, and disclose when AI contributed to your work. <a href="https://www.aamc.org/about-us/mission-areas/medical-education/principles-ai-use" target="_blank" style="color: var(--byu-navy); font-weight: 600;">Read the AAMC Principles for AI Use in Medical Education →</a></p>
+            </div>
+
+            <div class="checklist">
+                <div class="checklist-title">APA citation format for AI</div>
+                <p>When required by your assignment, cite AI assistance clearly. Example:</p>
+                <div class="citation-format">OpenAI. (2026). ChatGPT [Large language model]. https://chat.openai.com</div>
+            </div>
+
+            <div class="checklist">
+                <div class="checklist-title">Disclosure best practices</div>
+                <ul>
+                    <li>Briefly disclose how AI was used (brainstorming, outlining, explanation support, etc.).</li>
+                    <li>Identify what you verified independently with course materials or primary sources.</li>
+                    <li>Keep authorship and accountability with you — revise in your own voice and reasoning.</li>
+                    <li>Never enter identifiable patient information into consumer AI tools.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
     <!-- Closing -->
     <section class="closing">
         <div class="section-inner fade-in">
@@ -1594,7 +1866,7 @@
     </section>
 
     <footer>
-        <p>&copy; 2026 Rachel Skabelund · BYU School of Medicine</p>
+        <p>&copy; 2026 Rachel Skabelund · BYU School of Medicine · <a href="ai-guide.html#responsible-use">How to Use AI Responsibly</a></p>
     </footer>
     
     <script>
@@ -1620,6 +1892,47 @@
         });
         
         fadeElements.forEach(el => observer.observe(el));
+
+        const tocLinks = [...document.querySelectorAll('.toc-link')];
+        const tocSections = [...new Set(tocLinks.map((link) => link.getAttribute('href')))]
+            .map((href) => document.querySelector(href))
+            .filter(Boolean);
+
+        function setActiveToc(sectionId) {
+            tocLinks.forEach((link) => {
+                const isActive = link.getAttribute('href') === `#${sectionId}`;
+                link.classList.toggle('active', isActive);
+            });
+        }
+
+        const tocObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    setActiveToc(entry.target.id);
+                }
+            });
+        }, {
+            rootMargin: '-35% 0px -55% 0px',
+            threshold: 0.01
+        });
+
+        tocSections.forEach((section) => tocObserver.observe(section));
+
+        const initialSection = window.location.hash
+            ? document.querySelector(window.location.hash)
+            : tocSections[0];
+        if (initialSection) {
+            setActiveToc(initialSection.id);
+        }
+
+        const mobileToc = document.querySelector('.guide-toc-mobile');
+        document.querySelectorAll('.guide-toc-mobile .toc-link').forEach((link) => {
+            link.addEventListener('click', () => {
+                if (mobileToc?.open) {
+                    mobileToc.open = false;
+                }
+            });
+        });
         
         // Use in Chat button
         function useInChat(btn) {

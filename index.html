@@ -16,20 +16,47 @@
         
         :root {
             --byu-navy: #002E5D;
+            --byu-navy-light: #003d7a;
             --byu-white: #FFFFFF;
+            --gold: #C4A55A;
+
             --bg-cream: #FAFAF8;
             --bg-warm: #F5F4F2;
+            --bg-light: #F5F4F2;
+            --border-light: #e8e6e3;
+
             --text-primary: #1a1a2e;
             --text-secondary: #6b6b7b;
-            --border-light: #e8e6e3;
-            --gold: #C4A55A;
-            --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
-            --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
-            --shadow-lg: 0 8px 30px rgba(0,0,0,0.12);
-            --shadow-hover: 0 12px 40px rgba(0,0,0,0.15);
+            --text-muted: #888;
+
+            --accent: var(--byu-navy);
+            --accent-light: #e8eef5;
+            --cream: var(--bg-cream);
+            --warm-gray: var(--bg-warm);
+            --byu-light-gray: var(--bg-light);
+
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
+            --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --shadow-lg: 0 8px 30px rgba(0, 0, 0, 0.12);
+            --shadow-hover: 0 12px 40px rgba(0, 0, 0, 0.15);
+
             --transition-fast: 0.15s ease;
             --transition-med: 0.25s ease;
             --transition-slow: 0.4s ease;
+
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+
+            --space-xs: 0.25rem;
+            --space-sm: 0.5rem;
+            --space-md: 1rem;
+            --space-lg: 1.5rem;
+            --space-xl: 2rem;
+
+            --min-touch-target: 44px;
+            --focus-ring: #C4A55A;
+            --focus-shadow: 0 0 0 3px rgba(196, 165, 90, 0.32);
         }
         
         html {
@@ -44,6 +71,16 @@
             background: var(--bg-cream);
             color: var(--text-primary);
             -webkit-font-smoothing: antialiased;
+        }
+
+        a:focus-visible,
+        button:focus-visible,
+        input:focus-visible,
+        textarea:focus-visible,
+        summary:focus-visible {
+            outline: 3px solid var(--focus-ring);
+            outline-offset: 2px;
+            box-shadow: var(--focus-shadow);
         }
         
         /* Header */
@@ -68,6 +105,7 @@
             display: flex;
             align-items: center;
             gap: 1rem;
+            min-height: var(--min-touch-target);
             text-decoration: none;
             transition: opacity var(--transition-fast);
         }
@@ -102,12 +140,14 @@
             flex-direction: column;
             justify-content: center;
             gap: 5px;
-            width: 32px;
-            height: 32px;
+            width: var(--min-touch-target);
+            height: var(--min-touch-target);
+            min-width: var(--min-touch-target);
+            min-height: var(--min-touch-target);
             background: transparent;
             border: none;
             cursor: pointer;
-            padding: 4px;
+            padding: 8px;
             border-radius: 6px;
             transition: background var(--transition-fast);
         }
@@ -200,6 +240,7 @@
             display: flex;
             align-items: center;
             gap: 12px;
+            min-height: var(--min-touch-target);
             padding: 1.25rem 2rem;
             color: var(--text-primary);
             text-decoration: none;
@@ -259,7 +300,42 @@
                 transform: translateY(0);
             }
         }
-        
+
+        .intro-tagline {
+            font-size: 1.05rem;
+            color: var(--text-secondary);
+            margin: -1rem 0 1.5rem;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUp 0.6s ease 0.1s forwards;
+        }
+
+        .primary-cta {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: var(--min-touch-target);
+            min-height: var(--min-touch-target);
+            padding: 0.85rem 1.5rem;
+            margin-bottom: 1.75rem;
+            border-radius: 999px;
+            background: var(--byu-navy);
+            color: var(--byu-white);
+            text-decoration: none;
+            font-weight: 600;
+            box-shadow: 0 6px 18px rgba(0, 46, 93, 0.24);
+            transition: transform var(--transition-fast), box-shadow var(--transition-fast), background var(--transition-fast);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUp 0.6s ease 0.18s forwards;
+        }
+
+        .primary-cta:hover {
+            background: var(--byu-navy-light);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 24px rgba(0, 46, 93, 0.28);
+        }
+
         /* QR Carousel */
         .qr-carousel {
             background: var(--byu-white);
@@ -352,8 +428,10 @@
         }
         
         .carousel-btn {
-            width: 44px;
-            height: 44px;
+            width: var(--min-touch-target);
+            height: var(--min-touch-target);
+            min-width: var(--min-touch-target);
+            min-height: var(--min-touch-target);
             border-radius: 50%;
             border: 2px solid var(--byu-navy);
             background: transparent;
@@ -378,28 +456,42 @@
         
         .carousel-dots {
             display: flex;
-            gap: 10px;
+            gap: 2px;
         }
         
         .carousel-dot {
-            width: 10px;
-            height: 10px;
+            width: var(--min-touch-target);
+            height: var(--min-touch-target);
+            min-width: var(--min-touch-target);
+            min-height: var(--min-touch-target);
             border-radius: 50%;
             border: none;
-            background: var(--border-light);
+            background: transparent;
             cursor: pointer;
             padding: 0;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform var(--transition-fast);
+        }
+
+        .carousel-dot::before {
+            content: '';
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--border-light);
             transition: all var(--transition-fast);
         }
         
-        .carousel-dot:hover {
+        .carousel-dot:hover::before {
             background: var(--text-secondary);
-            transform: scale(1.2);
+            transform: scale(1.15);
         }
         
-        .carousel-dot.active {
+        .carousel-dot.active::before {
             background: var(--byu-navy);
-            transform: scale(1.2);
+            transform: scale(1.25);
         }
         
         .scan-instruction {
@@ -470,6 +562,26 @@
         footer a:hover {
             text-decoration: underline;
         }
+
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+
+            .qr-carousel:hover,
+            .quick-link:hover,
+            .carousel-btn:hover,
+            .primary-cta:hover {
+                transform: none;
+            }
+        }
         
         /* Mobile */
         @media (max-width: 600px) {
@@ -487,6 +599,16 @@
             
             h1 {
                 font-size: 1.85rem;
+            }
+
+            .intro-tagline {
+                font-size: 0.95rem;
+                margin-bottom: 1.25rem;
+            }
+
+            .primary-cta {
+                width: 100%;
+                margin-bottom: 1.25rem;
             }
             
             .qr-carousel {
@@ -534,6 +656,8 @@
     <main>
         <div class="container">
             <h1>Rachel Skabelund</h1>
+            <p class="intro-tagline">AI-enabled learning tools for medical students</p>
+            <a class="primary-cta" href="chat.html">Start with AI Chat</a>
             
             <div class="qr-carousel">
                 <div class="qr-display" id="qrDisplay">
@@ -571,7 +695,7 @@
     </main>
     
     <footer>
-        &copy; 2026 Rachel Skabelund · <a href="https://byu.edu">BYU School of Medicine</a>
+        &copy; 2026 Rachel Skabelund · <a href="https://byu.edu">BYU School of Medicine</a> · <a href="ai-guide.html#responsible-use">How to Use AI Responsibly</a>
     </footer>
     
     <script>
@@ -660,12 +784,32 @@
             if (Math.abs(diff) > 50) diff > 0 ? nextSlide() : prevSlide();
         }, { passive: true });
         
-        // Auto-advance every 5s (pause on hover)
-        let autoAdvance = setInterval(nextSlide, 5000);
-        carousel.addEventListener('mouseenter', () => clearInterval(autoAdvance));
-        carousel.addEventListener('mouseleave', () => autoAdvance = setInterval(nextSlide, 5000));
+        // Auto-advance every 5s (pause on hover); disable for reduced motion users
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+        let autoAdvance;
+
+        function startAutoAdvance() {
+            if (prefersReducedMotion.matches) return;
+            clearInterval(autoAdvance);
+            autoAdvance = setInterval(nextSlide, 5000);
+        }
+
+        function stopAutoAdvance() {
+            clearInterval(autoAdvance);
+        }
+
+        carousel.addEventListener('mouseenter', stopAutoAdvance);
+        carousel.addEventListener('mouseleave', startAutoAdvance);
+        prefersReducedMotion.addEventListener('change', () => {
+            if (prefersReducedMotion.matches) {
+                stopAutoAdvance();
+            } else {
+                startAutoAdvance();
+            }
+        });
         
         initCarousel();
+        startAutoAdvance();
     </script>
 </body>
 </html>

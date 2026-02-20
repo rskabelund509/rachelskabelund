@@ -16,8 +16,47 @@
         
         :root {
             --byu-navy: #002E5D;
+            --byu-navy-light: #003d7a;
             --byu-white: #FFFFFF;
-            --byu-light-gray: #F5F5F5;
+            --gold: #C4A55A;
+
+            --bg-cream: #FAFAF8;
+            --bg-warm: #F5F4F2;
+            --bg-light: #F5F4F2;
+            --border-light: #e8e6e3;
+
+            --text-primary: #1a1a2e;
+            --text-secondary: #6b6b7b;
+            --text-muted: #888;
+
+            --accent: var(--byu-navy);
+            --accent-light: #e8eef5;
+            --cream: var(--bg-cream);
+            --warm-gray: var(--bg-warm);
+            --byu-light-gray: var(--bg-light);
+
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
+            --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --shadow-lg: 0 8px 30px rgba(0, 0, 0, 0.12);
+            --shadow-hover: 0 12px 40px rgba(0, 0, 0, 0.15);
+
+            --transition-fast: 0.15s ease;
+            --transition-med: 0.25s ease;
+            --transition-slow: 0.4s ease;
+
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+
+            --space-xs: 0.25rem;
+            --space-sm: 0.5rem;
+            --space-md: 1rem;
+            --space-lg: 1.5rem;
+            --space-xl: 2rem;
+
+            --min-touch-target: 44px;
+            --focus-ring: #C4A55A;
+            --focus-shadow: 0 0 0 3px rgba(196, 165, 90, 0.32);
         }
         
         html, body {
@@ -31,6 +70,16 @@
             flex-direction: column;
             background: var(--byu-light-gray);
             color: var(--byu-navy);
+        }
+
+        a:focus-visible,
+        button:focus-visible,
+        input:focus-visible,
+        textarea:focus-visible,
+        summary:focus-visible {
+            outline: 3px solid var(--focus-ring);
+            outline-offset: 2px;
+            box-shadow: var(--focus-shadow);
         }
         
         header {
@@ -49,6 +98,7 @@
             display: flex;
             align-items: center;
             gap: 1rem;
+            min-height: var(--min-touch-target);
         }
         
         .logo {
@@ -69,12 +119,14 @@
             display: flex;
             flex-direction: column;
             justify-content: space-around;
-            width: 28px;
-            height: 24px;
+            width: var(--min-touch-target);
+            height: var(--min-touch-target);
+            min-width: var(--min-touch-target);
+            min-height: var(--min-touch-target);
             background: transparent;
             border: none;
             cursor: pointer;
-            padding: 0;
+            padding: 10px 8px;
             z-index: 1001;
         }
         
@@ -128,8 +180,10 @@
             color: var(--byu-white);
             text-decoration: none;
             font-size: 1.2rem;
+            min-height: var(--min-touch-target);
             padding: 0.75rem 0;
-            display: block;
+            display: flex;
+            align-items: center;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             transition: all 0.2s ease;
         }
@@ -169,6 +223,69 @@
             width: 100%;
             min-height: calc(100vh - 72px);
         }
+
+        .alex-status {
+            position: absolute;
+            top: 1.25rem;
+            left: 50%;
+            transform: translateX(-50%);
+            width: min(90%, 520px);
+            background: rgba(255, 255, 255, 0.95);
+            border: 1px solid rgba(0, 46, 93, 0.14);
+            border-radius: 12px;
+            box-shadow: 0 10px 24px rgba(0, 46, 93, 0.12);
+            padding: 0.85rem 1rem;
+            text-align: center;
+            font-size: 0.92rem;
+            color: var(--text-primary);
+            z-index: 3;
+        }
+
+        .alex-status.error {
+            border-color: rgba(161, 29, 44, 0.35);
+            color: #7f0f1d;
+        }
+
+        .alex-status[hidden] {
+            display: none;
+        }
+
+        .alex-fallback-link {
+            margin-left: 0.5rem;
+            color: var(--byu-navy);
+            font-weight: 600;
+            text-decoration: underline;
+        }
+
+        footer {
+            text-align: center;
+            padding: 0.9rem 1.5rem 1.2rem;
+            color: #5d6f82;
+            font-size: 0.82rem;
+        }
+
+        footer a {
+            color: var(--byu-navy);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+        }
         
         /* Mobile responsive */
         @media (max-width: 640px) {
@@ -189,6 +306,12 @@
                 font-size: 0.9rem;
             }
             
+            .alex-status {
+                top: 0.75rem;
+                width: min(94%, 480px);
+                font-size: 0.85rem;
+            }
+
             #did-agent {
                 min-height: calc(100vh - 56px);
             }
@@ -205,7 +328,7 @@
         <a href="index.html" class="header-brand">
             <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Brigham_Young_University_medallion.svg/1200px-Brigham_Young_University_medallion.svg.png" alt="BYU Logo" class="logo">
             <span class="header-text">School of Medicine</span>
-        </div>
+        </a>
         <button class="menu-toggle" aria-label="Menu" onclick="toggleMenu()">
             <span></span>
             <span></span>
@@ -226,8 +349,18 @@
     </nav>
     
     <main>
-        <div id="did-agent"></div>
+        <div id="alexStatus" class="alex-status" role="status" aria-live="polite">Loading Patient Alex...</div>
+        <div id="did-agent" aria-label="Patient Alex interactive simulation"></div>
+        <noscript>
+            <div class="alex-status error" style="position: static; transform: none; margin: 1rem auto;">
+                JavaScript is required to load Patient Alex. Please enable JavaScript and refresh this page.
+            </div>
+        </noscript>
     </main>
+
+    <footer>
+        &copy; 2026 Rachel Skabelund · <a href="ai-guide.html#responsible-use">How to Use AI Responsibly</a>
+    </footer>
     
     <script>
         function toggleMenu() {
@@ -236,6 +369,38 @@
             document.querySelector('.overlay').classList.toggle('active');
             document.body.style.overflow = document.body.style.overflow === 'hidden' ? '' : 'hidden';
         }
+
+        const alexStatus = document.getElementById('alexStatus');
+        const alexContainer = document.getElementById('did-agent');
+
+        function showAlexError(message) {
+            if (!alexStatus) return;
+            alexStatus.classList.add('error');
+            alexStatus.innerHTML = `${message} <a class="alex-fallback-link" href="alex.html">Retry</a>`;
+            alexStatus.hidden = false;
+        }
+
+        function markAlexLoaded() {
+            if (!alexStatus) return;
+            alexStatus.hidden = true;
+        }
+
+        const loadObserver = new MutationObserver(() => {
+            if (alexContainer && alexContainer.children.length > 0) {
+                markAlexLoaded();
+                loadObserver.disconnect();
+            }
+        });
+
+        if (alexContainer) {
+            loadObserver.observe(alexContainer, { childList: true, subtree: true });
+        }
+
+        window.setTimeout(() => {
+            if (alexContainer && alexContainer.children.length === 0) {
+                showAlexError('Patient Alex failed to load.');
+            }
+        }, 10000);
     </script>
     
     <script 
@@ -246,7 +411,8 @@
         data-agent-id="v2_agt_Y11oMcJn" 
         data-name="did-agent" 
         data-monitor="true" 
-        data-target-id="did-agent">
+        data-target-id="did-agent"
+        onerror="showAlexError('Unable to load Patient Alex right now.')">
     </script>
     <script src="auth.js"></script>
 </body>
