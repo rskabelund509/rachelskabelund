@@ -22,8 +22,11 @@ export default async function handler(req, res) {
   const apiKey = process.env.ANTHROPIC_API_KEY;
   
   if (!apiKey) {
-    return res.status(500).json({ error: 'API key not configured' });
+    return res.status(500).json({ error: 'API key not configured', hint: 'Set ANTHROPIC_API_KEY in Vercel Environment Variables' });
   }
+  
+  // Log key prefix for debugging (safe - only shows first few chars)
+  console.log('API key prefix:', apiKey.substring(0, 10) + '...');
 
   try {
     const { messages } = req.body;
@@ -50,7 +53,7 @@ export default async function handler(req, res) {
     if (!response.ok) {
       const error = await response.text();
       console.error('Anthropic API error:', error);
-      return res.status(response.status).json({ error: 'API request failed' });
+      return res.status(response.status).json({ error: 'API request failed', detail: error });
     }
 
     const data = await response.json();
