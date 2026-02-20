@@ -1080,7 +1080,7 @@ Answer questions helpfully and concisely. If asked about something not in the sy
                 if (data.error) {
                     addMessage('Sorry, I encountered an error. Please try again.', 'assistant');
                 } else {
-                    const assistantMessage = data.choices[0].message.content;
+                    const assistantMessage = data.content;
                     addMessage(assistantMessage, 'assistant');
                     conversationHistory.push({ role: 'assistant', content: assistantMessage });
                 }
