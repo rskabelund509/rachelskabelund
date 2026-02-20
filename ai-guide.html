@@ -583,6 +583,33 @@
             color: var(--text-secondary);
         }
         
+        /* Resource Cards */
+        .resource-card {
+            display: flex;
+            gap: 1.5rem;
+            padding: 1.5rem;
+            background: var(--byu-white);
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 46, 93, 0.08);
+            margin-bottom: 1.5rem;
+        }
+        
+        .resource-icon {
+            font-size: 2.5rem;
+            flex-shrink: 0;
+        }
+        
+        .resource-content h3 {
+            font-size: 1.15rem;
+            color: var(--byu-navy);
+            margin-bottom: 0.5rem;
+        }
+        
+        .resource-content p {
+            margin-bottom: 0;
+            font-size: 0.95rem;
+        }
+        
         /* Agency section special styling */
         .agency-section {
             background: linear-gradient(165deg, var(--byu-navy) 0%, #001a3a 100%);
@@ -970,6 +997,22 @@
                             <td>⚡⚡⚡⚡</td>
                             <td>$</td>
                         </tr>
+                        <tr>
+                            <td><strong>Grok 2</strong></td>
+                            <td>xAI</td>
+                            <td>128K</td>
+                            <td>Real-time info, unfiltered responses, creative tasks</td>
+                            <td>⚡⚡⚡</td>
+                            <td>$$</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Grok 2 Mini</strong></td>
+                            <td>xAI</td>
+                            <td>128K</td>
+                            <td>Fast queries, current events, witty explanations</td>
+                            <td>⚡⚡⚡⚡</td>
+                            <td>$</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -986,7 +1029,95 @@
         </div>
     </section>
 
-    <!-- Section 4: Context Window -->
+    <!-- Section: Cloud vs Local / HIPAA -->
+    <section class="section-cream">
+        <div class="section-inner fade-in">
+            <div class="section-number">Part Four</div>
+            <h2>Cloud vs Local: Privacy & HIPAA</h2>
+            <p class="section-subtitle">Understanding where your data goes — and why it matters</p>
+            
+            <p>When you use AI, your prompts go <em>somewhere</em>. Understanding where matters — especially in healthcare.</p>
+            
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Type</th>
+                            <th>How It Works</th>
+                            <th>Privacy</th>
+                            <th>Best For</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Cloud AI</strong><br><span style="font-size:0.85rem;color:#666">ChatGPT, Claude, Gemini</span></td>
+                            <td>Your prompts are sent to company servers for processing</td>
+                            <td>⚠️ Data may be stored, used for training (check policies)</td>
+                            <td>General learning, non-sensitive questions</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Local/Self-Hosted AI</strong><br><span style="font-size:0.85rem;color:#666">Llama, Mistral, Qwen</span></td>
+                            <td>Model runs on your device or a private server — data never leaves</td>
+                            <td>✅ Complete privacy, no external transmission</td>
+                            <td>Sensitive scenarios, HIPAA considerations</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Enterprise/HIPAA-Compliant</strong><br><span style="font-size:0.85rem;color:#666">Azure OpenAI, AWS Bedrock</span></td>
+                            <td>Cloud AI with BAAs, data isolation, and compliance certifications</td>
+                            <td>✅ HIPAA compliant with proper setup</td>
+                            <td>Clinical environments, real patient data</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="callout" style="border-left-color: #c53030; background: #fff8f8;">
+                <p><strong>🚨 Critical HIPAA Rule:</strong> Never paste real patient information (PHI) into consumer AI tools like ChatGPT, Claude, or Gemini. These are NOT HIPAA compliant. Instead: de-identify completely, use fictional cases based on the clinical pattern, or use approved institutional tools.</p>
+            </div>
+            
+            <p><strong>Open Source Models Worth Knowing:</strong></p>
+            <ul>
+                <li><strong>Llama 3</strong> (Meta) — Excellent general-purpose model, runs locally on good hardware</li>
+                <li><strong>Mistral / Mixtral</strong> — Fast, efficient, great for coding and reasoning</li>
+                <li><strong>Qwen 2.5</strong> (Alibaba) — Strong multilingual and medical knowledge</li>
+                <li><strong>Phi-3</strong> (Microsoft) — Smaller but surprisingly capable, runs on laptops</li>
+            </ul>
+            
+            <p>Open source models are improving rapidly. They offer privacy advantages and can be fine-tuned for specific medical domains — but currently lag behind frontier models for complex reasoning.</p>
+        </div>
+    </section>
+
+    <!-- Section: Course Resources -->
+    <section class="section-light">
+        <div class="section-inner fade-in">
+            <div class="section-number">Course Resources</div>
+            <h2>Your AI Access for This Course</h2>
+            <p class="section-subtitle">Tools provided for your learning</p>
+            
+            <div class="resource-card">
+                <div class="resource-icon">🌐</div>
+                <div class="resource-content">
+                    <h3>Powerful Cloud Models — Via This Website</h3>
+                    <p>You have access to state-of-the-art AI models (GPT-4o, Claude, and more) directly through the <a href="chat.html" style="color: var(--byu-navy); font-weight: 600;">AI Chat</a> on this website. Log in with your course credentials to use these models at no cost for your studies.</p>
+                </div>
+            </div>
+            
+            <div class="resource-card">
+                <div class="resource-icon">🖥️</div>
+                <div class="resource-content">
+                    <h3>Local Open Source Models — Rachel's Server</h3>
+                    <p>Want to experiment with open source models? During this course, you'll have access to a dedicated server running local AI models. This gives you hands-on experience with privacy-preserving AI and lets you explore alternatives to commercial services.</p>
+                    <p style="margin-top: 0.75rem; font-size: 0.9rem; color: #666;">Access details will be provided in class. Great for: learning about local deployment, HIPAA-friendly experimentation, and understanding the open source ecosystem.</p>
+                </div>
+            </div>
+            
+            <div class="callout callout-gold">
+                <p><strong>Why both?</strong> Cloud models offer cutting-edge capabilities. Local models offer privacy and independence. As a future physician, understanding both gives you flexibility to choose the right tool for each situation — and prepares you for a healthcare landscape where AI deployment choices matter.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 6: Context Window -->
     <section class="section-cream">
         <div class="section-inner fade-in">
             <div class="section-number">Part Four</div>
@@ -1017,10 +1148,10 @@
         </div>
     </section>
 
-    <!-- Section 5: Feed It Sources -->
+    <!-- Section 7: Feed It Sources -->
     <section class="section-light">
         <div class="section-inner fade-in">
-            <div class="section-number">Part Five</div>
+            <div class="section-number">Part Seven</div>
             <h2>Feed It Sources, Get Better Answers</h2>
             <p class="section-subtitle">AI doesn't know what it doesn't know</p>
             
@@ -1051,7 +1182,7 @@
         </div>
     </section>
 
-    <!-- Section 6: Verify -->
+    <!-- Section 8: Verify -->
     <section class="section-cream">
         <div class="section-inner fade-in">
             <div class="section-number">Part Six</div>
@@ -1077,7 +1208,7 @@
         </div>
     </section>
 
-    <!-- Section 7: Agency -->
+    <!-- Section 9: Agency -->
     <section class="agency-section">
         <div class="section-inner fade-in">
             <div class="section-number" style="color: rgba(255,255,255,0.6);">Part Seven</div>
@@ -1131,10 +1262,10 @@
         </div>
     </section>
 
-    <!-- Section 8: Misconceptions -->
+    <!-- Section 10: Misconceptions -->
     <section class="section-light">
         <div class="section-inner fade-in">
-            <div class="section-number">Part Eight</div>
+            <div class="section-number">Part Ten</div>
             <h2>Common Misconceptions</h2>
             <p class="section-subtitle">Myths that hold students back</p>
             
@@ -1177,7 +1308,7 @@
         </div>
     </section>
 
-    <!-- Section 9: Prompt Templates -->
+    <!-- Section 11: Prompt Templates -->
     <section class="section-cream">
         <div class="section-inner fade-in">
             <div class="section-number">Part Nine</div>
@@ -1224,7 +1355,7 @@
         </div>
     </section>
 
-    <!-- Section 10: When NOT to Use AI -->
+    <!-- Section 12: When NOT to Use AI -->
     <section class="section-light">
         <div class="section-inner fade-in">
             <div class="section-number">Part Ten</div>
@@ -1281,7 +1412,7 @@
         </div>
     </section>
 
-    <!-- Section 11: Checklist -->
+    <!-- Section 13: Checklist -->
     <section class="section-cream">
         <div class="section-inner fade-in">
             <div class="section-number">Quick Reference</div>
