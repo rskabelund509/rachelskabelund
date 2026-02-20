@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;600&display=swap" rel="stylesheet">
     <title>Rachel Skabelund</title>
     <style>
         * {
@@ -36,9 +39,23 @@
             position: relative;
         }
         
+        .header-brand {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
         .logo {
             height: 40px;
             width: auto;
+        }
+        
+        .header-text {
+            color: var(--byu-white);
+            font-family: 'Libre Franklin', 'Source Sans Pro', -apple-system, sans-serif;
+            font-size: 1.25rem;
+            font-weight: 400;
+            letter-spacing: 0.02em;
         }
         
         /* Hamburger Menu */
@@ -182,8 +199,16 @@
                 padding: 0.75rem 1rem;
             }
             
+            .header-brand {
+                gap: 0.75rem;
+            }
+            
             .logo {
                 height: 32px;
+            }
+            
+            .header-text {
+                font-size: 0.9rem;
             }
             
             main {
@@ -218,7 +243,10 @@
 </head>
 <body>
     <header>
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Brigham_Young_University_medallion.svg/1200px-Brigham_Young_University_medallion.svg.png" alt="BYU Logo" class="logo">
+        <div class="header-brand">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Brigham_Young_University_medallion.svg/1200px-Brigham_Young_University_medallion.svg.png" alt="BYU Logo" class="logo">
+            <span class="header-text">School of Medicine</span>
+        </div>
         <button class="menu-toggle" aria-label="Menu" onclick="toggleMenu()">
             <span></span>
             <span></span>
