@@ -525,6 +525,20 @@
         
         let conversationHistory = [];
         
+        // Check for pre-filled prompt from URL
+        (function() {
+            const params = new URLSearchParams(window.location.search);
+            const prompt = params.get('prompt');
+            if (prompt) {
+                chatInput.value = decodeURIComponent(prompt);
+                chatInput.style.height = 'auto';
+                chatInput.style.height = Math.min(chatInput.scrollHeight, 200) + 'px';
+                chatInput.focus();
+                // Clean URL without reload
+                window.history.replaceState({}, '', window.location.pathname);
+            }
+        })();
+        
         function addMessage(content, role) {
             const messageDiv = document.createElement('div');
             messageDiv.className = `message ${role}`;

@@ -551,6 +551,25 @@
             word-wrap: break-word;
         }
         
+        .use-in-chat-btn {
+            display: block;
+            width: 100%;
+            padding: 0.75rem 1rem;
+            background: var(--byu-navy);
+            color: white;
+            border: none;
+            border-radius: 0 0 12px 12px;
+            font-family: 'Libre Franklin', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+        
+        .use-in-chat-btn:hover {
+            background: #001d3d;
+        }
+        
         /* Don't List */
         .dont-list {
             margin: 2rem 0;
@@ -1414,11 +1433,13 @@
             <div class="prompt-template">
                 <div class="prompt-title">🩺 Differential Diagnosis Builder</div>
                 <div class="prompt-content">I'm a medical student working through a case. The patient is a [age]-year-old [sex] presenting with [chief complaint]. Key findings: [list relevant history, exam findings, labs]. Generate a differential diagnosis organized by most likely to least likely, with brief reasoning for each. Then suggest what additional history, exam findings, or tests would help narrow the differential.</div>
+                <button class="use-in-chat-btn" onclick="useInChat(this)">💬 Use in Chat</button>
             </div>
             
             <div class="prompt-template">
                 <div class="prompt-title">📚 Study Quiz Generator</div>
                 <div class="prompt-content">I'm studying [topic] for [exam type, e.g., Step 1, shelf exam]. Generate 10 clinical vignette-style multiple choice questions that test the most high-yield concepts. After I answer, tell me which ones I got wrong and explain why the correct answer is right. Focus on the concepts that are most commonly tested.</div>
+                <button class="use-in-chat-btn" onclick="useInChat(this)">💬 Use in Chat</button>
             </div>
             
             <div class="prompt-template">
@@ -1426,21 +1447,25 @@
                 <div class="prompt-content">I'm going to paste a research paper abstract (or full text). Please summarize it in this format: (1) Research Question — what were they trying to answer? (2) Methods — brief description of study design and population (3) Key Findings — the main results in plain language (4) Clinical Implications — what does this mean for patient care? (5) Limitations — what should I be cautious about when interpreting this?
 
 [Paste paper here]</div>
+                <button class="use-in-chat-btn" onclick="useInChat(this)">💬 Use in Chat</button>
             </div>
             
             <div class="prompt-template">
                 <div class="prompt-title">🎯 Clinical Vignette Creator</div>
                 <div class="prompt-content">Create a clinical vignette about [condition/topic] that would be appropriate for a [year] medical student. Include: presenting complaint, relevant history, physical exam findings, and initial lab/imaging results. After I work through it, reveal the diagnosis and explain the key teaching points. Make it realistic and challenging but fair.</div>
+                <button class="use-in-chat-btn" onclick="useInChat(this)">💬 Use in Chat</button>
             </div>
             
             <div class="prompt-template">
                 <div class="prompt-title">🎓 Explain Like I'm a [Year] Student</div>
                 <div class="prompt-content">Explain [concept] to me as if I'm a [first-year/second-year/third-year/fourth-year] medical student. Start with the foundational concepts I need to understand, then build up to the clinical relevance. Use analogies where helpful. If there are common misconceptions about this topic, address them. End with 2-3 practice questions to check my understanding.</div>
+                <button class="use-in-chat-btn" onclick="useInChat(this)">💬 Use in Chat</button>
             </div>
             
             <div class="prompt-template">
                 <div class="prompt-title">💊 Mechanism & Pharmacology Deep Dive</div>
                 <div class="prompt-content">Explain the mechanism of action of [drug/drug class] at a level appropriate for Step 1. Include: (1) The molecular target and what happens when it's activated/inhibited (2) The downstream physiological effects (3) Why this makes it useful for [indication] (4) The major side effects and why they occur mechanistically (5) Key drug interactions to know. Use a simple diagram description if it helps.</div>
+                <button class="use-in-chat-btn" onclick="useInChat(this)">💬 Use in Chat</button>
             </div>
             
             <div class="callout">
@@ -1592,6 +1617,13 @@
         });
         
         fadeElements.forEach(el => observer.observe(el));
+        
+        // Use in Chat button
+        function useInChat(btn) {
+            const promptContent = btn.previousElementSibling.textContent;
+            const encodedPrompt = encodeURIComponent(promptContent);
+            window.location.href = 'chat.html?prompt=' + encodedPrompt;
+        }
     </script>
     <script src="auth.js"></script>
 </body>
