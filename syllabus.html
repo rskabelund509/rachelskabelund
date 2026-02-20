@@ -1064,7 +1064,7 @@ Answer questions helpfully and concisely. If asked about something not in the sy
             sendBtn.disabled = true;
             
             try {
-                const response = await fetch('/api/chat.js', {
+                const response = await fetch('/api/chat', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
