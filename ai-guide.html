@@ -521,6 +521,68 @@
             font-weight: 700;
         }
         
+        /* Prompt Templates */
+        .prompt-template {
+            background: var(--byu-white);
+            border-radius: 12px;
+            margin: 1.5rem 0;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 46, 93, 0.08);
+        }
+        
+        .prompt-title {
+            background: var(--byu-navy);
+            color: white;
+            padding: 0.875rem 1.25rem;
+            font-weight: 600;
+            font-size: 1rem;
+        }
+        
+        .prompt-content {
+            padding: 1.25rem;
+            font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: var(--text-secondary);
+            background: #fafafa;
+            border: 1px solid #eee;
+            border-top: none;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        
+        /* Don't List */
+        .dont-list {
+            margin: 2rem 0;
+        }
+        
+        .dont-item {
+            display: flex;
+            gap: 1rem;
+            padding: 1.25rem;
+            background: #fff8f8;
+            border-left: 4px solid #c53030;
+            border-radius: 0 12px 12px 0;
+            margin-bottom: 1rem;
+        }
+        
+        .dont-icon {
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+        
+        .dont-content strong {
+            display: block;
+            color: #c53030;
+            margin-bottom: 0.25rem;
+        }
+        
+        .dont-content p {
+            margin: 0;
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+        }
+        
         /* Agency section special styling */
         .agency-section {
             background: linear-gradient(165deg, var(--byu-navy) 0%, #001a3a 100%);
@@ -835,35 +897,85 @@
         <div class="section-inner fade-in">
             <div class="section-number">Part Three</div>
             <h2>Not All AI Is Created Equal</h2>
-            <p class="section-subtitle">Understanding model differences</p>
+            <p class="section-subtitle">A comprehensive guide to current models</p>
+            
+            <p>Choosing the right model for the task is like choosing the right specialist for a consult. Here's what's available:</p>
             
             <div class="table-wrapper">
                 <table>
                     <thead>
                         <tr>
-                            <th>Model Tier</th>
+                            <th>Model</th>
+                            <th>Provider</th>
+                            <th>Context</th>
                             <th>Best For</th>
-                            <th>Think of it as...</th>
+                            <th>Speed</th>
+                            <th>Cost</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td><strong>GPT-4 / Claude Opus</strong></td>
-                            <td>Complex reasoning, nuanced analysis, research synthesis</td>
-                            <td>Attending physician</td>
+                            <td><strong>GPT-4o</strong></td>
+                            <td>OpenAI</td>
+                            <td>128K</td>
+                            <td>Daily driver — fast, smart, multimodal (images, audio)</td>
+                            <td>⚡⚡⚡</td>
+                            <td>$$</td>
                         </tr>
                         <tr>
-                            <td><strong>GPT-4o / Claude Sonnet</strong></td>
-                            <td>Balanced speed + intelligence, daily study use</td>
-                            <td>Senior resident</td>
+                            <td><strong>GPT-4 Turbo</strong></td>
+                            <td>OpenAI</td>
+                            <td>128K</td>
+                            <td>Complex reasoning, long documents, research</td>
+                            <td>⚡⚡</td>
+                            <td>$$$</td>
                         </tr>
                         <tr>
-                            <td><strong>GPT-3.5 / Smaller models</strong></td>
-                            <td>Quick facts, simple lookups, basic questions</td>
-                            <td>Medical student</td>
+                            <td><strong>Claude 3.5 Sonnet</strong></td>
+                            <td>Anthropic</td>
+                            <td>200K</td>
+                            <td>Nuanced writing, analysis, coding, careful reasoning</td>
+                            <td>⚡⚡⚡</td>
+                            <td>$$</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Claude 3 Opus</strong></td>
+                            <td>Anthropic</td>
+                            <td>200K</td>
+                            <td>Deepest reasoning, complex research synthesis</td>
+                            <td>⚡</td>
+                            <td>$$$$</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Gemini 1.5 Pro</strong></td>
+                            <td>Google</td>
+                            <td>1M+</td>
+                            <td>Massive documents, video analysis, multimodal</td>
+                            <td>⚡⚡</td>
+                            <td>$$</td>
+                        </tr>
+                        <tr>
+                            <td><strong>GPT-4o Mini</strong></td>
+                            <td>OpenAI</td>
+                            <td>128K</td>
+                            <td>Quick tasks, cost-conscious, high volume</td>
+                            <td>⚡⚡⚡⚡</td>
+                            <td>$</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Claude 3 Haiku</strong></td>
+                            <td>Anthropic</td>
+                            <td>200K</td>
+                            <td>Fast drafts, simple questions, quick lookups</td>
+                            <td>⚡⚡⚡⚡</td>
+                            <td>$</td>
                         </tr>
                     </tbody>
                 </table>
+            </div>
+            
+            <div class="callout callout-gold">
+                <p><strong>🧠 Reasoning Models:</strong> For complex medical reasoning — differential diagnosis, treatment planning, case analysis — look for "reasoning" or "thinking" modes. OpenAI's o1 and Claude's extended thinking spend more time reasoning before answering, dramatically improving accuracy on complex problems. Worth the extra wait for high-stakes questions.</p>
             </div>
             
             <p><strong>Why this matters:</strong> Using a lightweight model for complex differential diagnosis is like asking a first-year to run a tumor board. Match the tool to the task.</p>
@@ -1065,7 +1177,111 @@
         </div>
     </section>
 
-    <!-- Section 9: Checklist -->
+    <!-- Section 9: Prompt Templates -->
+    <section class="section-cream">
+        <div class="section-inner fade-in">
+            <div class="section-number">Part Nine</div>
+            <h2>Prompt Templates for Med Students</h2>
+            <p class="section-subtitle">Copy, paste, and customize these for instant results</p>
+            
+            <p>Don't start from scratch every time. Here are battle-tested prompts you can adapt:</p>
+            
+            <div class="prompt-template">
+                <div class="prompt-title">🩺 Differential Diagnosis Builder</div>
+                <div class="prompt-content">I'm a medical student working through a case. The patient is a [age]-year-old [sex] presenting with [chief complaint]. Key findings: [list relevant history, exam findings, labs]. Generate a differential diagnosis organized by most likely to least likely, with brief reasoning for each. Then suggest what additional history, exam findings, or tests would help narrow the differential.</div>
+            </div>
+            
+            <div class="prompt-template">
+                <div class="prompt-title">📚 Study Quiz Generator</div>
+                <div class="prompt-content">I'm studying [topic] for [exam type, e.g., Step 1, shelf exam]. Generate 10 clinical vignette-style multiple choice questions that test the most high-yield concepts. After I answer, tell me which ones I got wrong and explain why the correct answer is right. Focus on the concepts that are most commonly tested.</div>
+            </div>
+            
+            <div class="prompt-template">
+                <div class="prompt-title">📄 Paper Summarizer</div>
+                <div class="prompt-content">I'm going to paste a research paper abstract (or full text). Please summarize it in this format: (1) Research Question — what were they trying to answer? (2) Methods — brief description of study design and population (3) Key Findings — the main results in plain language (4) Clinical Implications — what does this mean for patient care? (5) Limitations — what should I be cautious about when interpreting this?
+
+[Paste paper here]</div>
+            </div>
+            
+            <div class="prompt-template">
+                <div class="prompt-title">🎯 Clinical Vignette Creator</div>
+                <div class="prompt-content">Create a clinical vignette about [condition/topic] that would be appropriate for a [year] medical student. Include: presenting complaint, relevant history, physical exam findings, and initial lab/imaging results. After I work through it, reveal the diagnosis and explain the key teaching points. Make it realistic and challenging but fair.</div>
+            </div>
+            
+            <div class="prompt-template">
+                <div class="prompt-title">🎓 Explain Like I'm a [Year] Student</div>
+                <div class="prompt-content">Explain [concept] to me as if I'm a [first-year/second-year/third-year/fourth-year] medical student. Start with the foundational concepts I need to understand, then build up to the clinical relevance. Use analogies where helpful. If there are common misconceptions about this topic, address them. End with 2-3 practice questions to check my understanding.</div>
+            </div>
+            
+            <div class="prompt-template">
+                <div class="prompt-title">💊 Mechanism & Pharmacology Deep Dive</div>
+                <div class="prompt-content">Explain the mechanism of action of [drug/drug class] at a level appropriate for Step 1. Include: (1) The molecular target and what happens when it's activated/inhibited (2) The downstream physiological effects (3) Why this makes it useful for [indication] (4) The major side effects and why they occur mechanistically (5) Key drug interactions to know. Use a simple diagram description if it helps.</div>
+            </div>
+            
+            <div class="callout">
+                <p><strong>💡 Customization tip:</strong> These templates work best when you add your specific context. The more details you provide about what you're studying and why, the more targeted the response will be.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 10: When NOT to Use AI -->
+    <section class="section-light">
+        <div class="section-inner fade-in">
+            <div class="section-number">Part Ten</div>
+            <h2>When NOT to Use AI</h2>
+            <p class="section-subtitle">Knowing when to step away is as important as knowing how to use it</p>
+            
+            <p>AI is powerful, but there are times when reaching for it is the wrong choice:</p>
+            
+            <div class="dont-list">
+                <div class="dont-item">
+                    <div class="dont-icon">🚫</div>
+                    <div class="dont-content">
+                        <strong>During proctored exams</strong>
+                        <p>This should be obvious, but using AI during exams is academic dishonesty. Beyond the ethical violation, it also means you won't actually learn — and that catches up with you on the wards.</p>
+                    </div>
+                </div>
+                
+                <div class="dont-item">
+                    <div class="dont-icon">🚫</div>
+                    <div class="dont-content">
+                        <strong>For anything involving real patient PHI</strong>
+                        <p>Never paste patient information into AI tools. Most are not HIPAA compliant. De-identify completely or create fictional scenarios based on the clinical pattern.</p>
+                    </div>
+                </div>
+                
+                <div class="dont-item">
+                    <div class="dont-icon">🚫</div>
+                    <div class="dont-content">
+                        <strong>When you haven't tried first</strong>
+                        <p>If you immediately reach for AI without attempting to reason through a problem yourself, you're robbing yourself of the productive struggle that builds clinical thinking. Try first, then use AI to check, expand, or clarify.</p>
+                    </div>
+                </div>
+                
+                <div class="dont-item">
+                    <div class="dont-icon">🚫</div>
+                    <div class="dont-content">
+                        <strong>For documentation requiring your authentic voice</strong>
+                        <p>Personal statements, reflective essays, and certain assignments are meant to capture YOUR thinking and growth. Using AI undermines their purpose and your development.</p>
+                    </div>
+                </div>
+                
+                <div class="dont-item">
+                    <div class="dont-icon">🚫</div>
+                    <div class="dont-content">
+                        <strong>When the stakes require human judgment</strong>
+                        <p>Real patient care decisions, sensitive conversations, ethical dilemmas — these require human wisdom, empathy, and accountability that AI cannot provide.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="principle">
+                <p>The goal is to become a capable physician who can use AI as a tool — not a dependent user who can't function without it.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 11: Checklist -->
     <section class="section-cream">
         <div class="section-inner fade-in">
             <div class="section-number">Quick Reference</div>
