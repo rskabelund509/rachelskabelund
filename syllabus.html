@@ -1,0 +1,1097 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;500;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+    <title>Course Syllabus - Medical Metabolism | Rachel Skabelund</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --byu-navy: #002E5D;
+            --byu-white: #FFFFFF;
+            --gold: #C4A55A;
+            --text-primary: #1a1a2e;
+            --text-secondary: #4a4a5a;
+            --bg-cream: #faf9f7;
+            --bg-light: #f5f4f2;
+            --border-light: #e8e6e3;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: 'Libre Franklin', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-cream);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+        
+        /* Header */
+        header {
+            background: var(--byu-navy);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 20px rgba(0, 46, 93, 0.15);
+        }
+        
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .header-brand {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .header-brand img {
+            height: 40px;
+        }
+        
+        .header-brand span {
+            color: white;
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+        
+        .menu-toggle {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+        }
+        
+        .menu-toggle span {
+            width: 24px;
+            height: 2px;
+            background: white;
+            transition: 0.3s;
+        }
+        
+        /* Navigation */
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 998;
+        }
+        
+        .overlay.active {
+            display: block;
+        }
+        
+        .nav-menu {
+            position: fixed;
+            top: 0;
+            right: -280px;
+            width: 280px;
+            height: 100%;
+            background: white;
+            z-index: 999;
+            transition: right 0.3s ease;
+            box-shadow: -5px 0 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .nav-menu.active {
+            right: 0;
+        }
+        
+        .nav-menu ul {
+            list-style: none;
+            padding: 80px 0 0 0;
+        }
+        
+        .nav-menu li a {
+            display: block;
+            padding: 1rem 2rem;
+            color: var(--byu-navy);
+            text-decoration: none;
+            font-weight: 500;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .nav-menu li a:hover {
+            background: var(--bg-light);
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--byu-navy) 0%, #001d3d 100%);
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+        
+        .hero-inner {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .course-badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.15);
+            padding: 0.5rem 1.25rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+        }
+        
+        .hero h1 {
+            font-family: 'Merriweather', Georgia, serif;
+            font-size: 2.75rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+        
+        .hero .subtitle {
+            font-size: 1.25rem;
+            opacity: 0.9;
+            margin-bottom: 0.5rem;
+        }
+        
+        .hero .semester {
+            font-size: 1rem;
+            opacity: 0.7;
+        }
+        
+        /* Main Content */
+        main {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 3rem 1.5rem;
+        }
+        
+        /* Info Cards Row */
+        .info-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 3rem;
+            margin-top: -4rem;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .info-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 46, 93, 0.08);
+            text-align: center;
+        }
+        
+        .info-card-icon {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .info-card-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-secondary);
+            margin-bottom: 0.25rem;
+        }
+        
+        .info-card-value {
+            font-weight: 600;
+            color: var(--byu-navy);
+        }
+        
+        /* Sections */
+        .section {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 12px rgba(0, 46, 93, 0.04);
+        }
+        
+        .section h2 {
+            font-family: 'Merriweather', Georgia, serif;
+            font-size: 1.5rem;
+            color: var(--byu-navy);
+            margin-bottom: 1.25rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid var(--bg-light);
+        }
+        
+        .section p {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+        
+        .section ul, .section ol {
+            color: var(--text-secondary);
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .section li {
+            margin-bottom: 0.5rem;
+        }
+        
+        /* Learning Objectives */
+        .objectives-grid {
+            display: grid;
+            gap: 1rem;
+        }
+        
+        .objective {
+            display: flex;
+            gap: 1rem;
+            padding: 1rem;
+            background: var(--bg-light);
+            border-radius: 10px;
+            align-items: flex-start;
+        }
+        
+        .objective-number {
+            background: var(--byu-navy);
+            color: white;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+        
+        .objective-text {
+            color: var(--text-primary);
+            font-size: 0.95rem;
+        }
+        
+        /* Schedule Table */
+        .schedule-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+        
+        .schedule-table th {
+            background: var(--byu-navy);
+            color: white;
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+        }
+        
+        .schedule-table th:first-child {
+            border-radius: 8px 0 0 0;
+        }
+        
+        .schedule-table th:last-child {
+            border-radius: 0 8px 0 0;
+        }
+        
+        .schedule-table td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border-light);
+            font-size: 0.95rem;
+        }
+        
+        .schedule-table tr:hover td {
+            background: var(--bg-light);
+        }
+        
+        .schedule-table .week-num {
+            font-weight: 600;
+            color: var(--byu-navy);
+        }
+        
+        .schedule-table .topic {
+            font-weight: 500;
+        }
+        
+        .schedule-table .assessment {
+            color: var(--gold);
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+        
+        /* Grading */
+        .grading-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .grade-item {
+            text-align: center;
+            padding: 1.25rem;
+            background: var(--bg-light);
+            border-radius: 12px;
+        }
+        
+        .grade-percent {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--byu-navy);
+        }
+        
+        .grade-label {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-top: 0.25rem;
+        }
+        
+        /* Policies */
+        .policy-item {
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--border-light);
+        }
+        
+        .policy-item:last-child {
+            border-bottom: none;
+        }
+        
+        .policy-item h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--byu-navy);
+            margin-bottom: 0.5rem;
+        }
+        
+        .policy-item p {
+            margin-bottom: 0;
+            font-size: 0.95rem;
+        }
+        
+        /* Ask AI Button */
+        .ask-ai-fab {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--byu-navy);
+            color: white;
+            border: none;
+            padding: 1rem 1.5rem;
+            border-radius: 50px;
+            font-family: inherit;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(0, 46, 93, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.2s ease;
+            z-index: 100;
+        }
+        
+        .ask-ai-fab:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(0, 46, 93, 0.4);
+        }
+        
+        .ask-ai-fab span {
+            font-size: 1.25rem;
+        }
+        
+        /* Chat Modal */
+        .chat-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+        
+        .chat-modal.active {
+            display: flex;
+        }
+        
+        .chat-container {
+            background: white;
+            width: 100%;
+            max-width: 600px;
+            height: 80vh;
+            max-height: 700px;
+            border-radius: 16px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+        
+        .chat-header {
+            background: var(--byu-navy);
+            color: white;
+            padding: 1.25rem 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .chat-header h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+        
+        .chat-close {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            opacity: 0.8;
+            transition: opacity 0.2s;
+        }
+        
+        .chat-close:hover {
+            opacity: 1;
+        }
+        
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .message {
+            max-width: 85%;
+            padding: 1rem 1.25rem;
+            border-radius: 16px;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+        
+        .message.assistant {
+            background: var(--bg-light);
+            color: var(--text-primary);
+            align-self: flex-start;
+            border-bottom-left-radius: 4px;
+        }
+        
+        .message.user {
+            background: var(--byu-navy);
+            color: white;
+            align-self: flex-end;
+            border-bottom-right-radius: 4px;
+        }
+        
+        .typing-indicator {
+            display: none;
+            align-self: flex-start;
+            padding: 1rem 1.25rem;
+            background: var(--bg-light);
+            border-radius: 16px;
+            border-bottom-left-radius: 4px;
+        }
+        
+        .typing-indicator.active {
+            display: block;
+        }
+        
+        .typing-dots {
+            display: flex;
+            gap: 4px;
+        }
+        
+        .typing-dots span {
+            width: 8px;
+            height: 8px;
+            background: var(--text-secondary);
+            border-radius: 50%;
+            animation: typing 1.4s infinite;
+        }
+        
+        .typing-dots span:nth-child(2) { animation-delay: 0.2s; }
+        .typing-dots span:nth-child(3) { animation-delay: 0.4s; }
+        
+        @keyframes typing {
+            0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+            30% { transform: translateY(-4px); opacity: 1; }
+        }
+        
+        .chat-input-area {
+            padding: 1rem 1.5rem;
+            border-top: 1px solid var(--border-light);
+            display: flex;
+            gap: 0.75rem;
+        }
+        
+        .chat-input {
+            flex: 1;
+            padding: 0.875rem 1rem;
+            border: 2px solid var(--border-light);
+            border-radius: 12px;
+            font-family: inherit;
+            font-size: 1rem;
+            resize: none;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        
+        .chat-input:focus {
+            border-color: var(--byu-navy);
+        }
+        
+        .chat-send {
+            background: var(--byu-navy);
+            color: white;
+            border: none;
+            padding: 0 1.25rem;
+            border-radius: 12px;
+            font-size: 1.25rem;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        
+        .chat-send:hover {
+            background: #001d3d;
+        }
+        
+        .chat-send:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero {
+                padding: 3rem 1.5rem;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .info-cards {
+                grid-template-columns: repeat(2, 1fr);
+                margin-top: -3rem;
+            }
+            
+            .section {
+                padding: 1.5rem;
+            }
+            
+            .schedule-table {
+                font-size: 0.85rem;
+            }
+            
+            .schedule-table th,
+            .schedule-table td {
+                padding: 0.75rem 0.5rem;
+            }
+            
+            .ask-ai-fab {
+                bottom: 1.5rem;
+                right: 1.5rem;
+                padding: 0.875rem 1.25rem;
+                font-size: 0.9rem;
+            }
+            
+            .chat-container {
+                height: 90vh;
+                border-radius: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="overlay" onclick="toggleMenu()"></div>
+    
+    <header>
+        <div class="header-content">
+            <div class="header-brand">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Brigham_Young_University_medallion.svg/1200px-Brigham_Young_University_medallion.svg.png" alt="BYU Logo">
+                <span>School of Medicine</span>
+            </div>
+            <button class="menu-toggle" onclick="toggleMenu()" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+    
+    <nav class="nav-menu">
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="alex.html">Patient Alex</a></li>
+            <li><a href="chat.html">AI Chat</a></li>
+            <li><a href="ai-guide.html">AI Guide</a></li>
+            <li><a href="syllabus.html">Course Syllabus</a></li>
+        </ul>
+    </nav>
+    
+    <section class="hero">
+        <div class="hero-inner">
+            <div class="course-badge">MBIO 601</div>
+            <h1>Medical Metabolism</h1>
+            <p class="subtitle">Professor Rachel Skabelund, PhD</p>
+            <p class="semester">Fall 2026 • BYU School of Medicine</p>
+        </div>
+    </section>
+    
+    <main>
+        <div class="info-cards">
+            <div class="info-card">
+                <div class="info-card-icon">📍</div>
+                <div class="info-card-label">Location</div>
+                <div class="info-card-value">HBLL 250</div>
+            </div>
+            <div class="info-card">
+                <div class="info-card-icon">🕐</div>
+                <div class="info-card-label">Schedule</div>
+                <div class="info-card-value">MWF 9:00–10:15am</div>
+            </div>
+            <div class="info-card">
+                <div class="info-card-icon">📧</div>
+                <div class="info-card-label">Contact</div>
+                <div class="info-card-value">rskabelund@byu.edu</div>
+            </div>
+            <div class="info-card">
+                <div class="info-card-icon">🏢</div>
+                <div class="info-card-label">Office Hours</div>
+                <div class="info-card-value">TTh 2:00–4:00pm</div>
+            </div>
+        </div>
+        
+        <section class="section">
+            <h2>Course Description</h2>
+            <p>This course provides a comprehensive exploration of human metabolism, integrating biochemical principles with clinical applications. Students will develop a deep understanding of how metabolic pathways function in health and disease, preparing them to recognize and manage metabolic disorders in clinical practice.</p>
+            <p>We will examine carbohydrate, lipid, amino acid, and nucleotide metabolism through the lens of clinical medicine, emphasizing the molecular basis of metabolic diseases and their treatment. Case-based learning will reinforce connections between biochemistry and patient care.</p>
+        </section>
+        
+        <section class="section">
+            <h2>Learning Objectives</h2>
+            <div class="objectives-grid">
+                <div class="objective">
+                    <div class="objective-number">1</div>
+                    <div class="objective-text">Describe the major metabolic pathways and their regulation, including glycolysis, gluconeogenesis, TCA cycle, and oxidative phosphorylation</div>
+                </div>
+                <div class="objective">
+                    <div class="objective-number">2</div>
+                    <div class="objective-text">Explain the biochemical basis of common metabolic disorders and their clinical presentations</div>
+                </div>
+                <div class="objective">
+                    <div class="objective-number">3</div>
+                    <div class="objective-text">Integrate knowledge of metabolic pathways to predict consequences of enzymatic deficiencies</div>
+                </div>
+                <div class="objective">
+                    <div class="objective-number">4</div>
+                    <div class="objective-text">Apply metabolic principles to interpret laboratory findings and guide clinical decision-making</div>
+                </div>
+                <div class="objective">
+                    <div class="objective-number">5</div>
+                    <div class="objective-text">Analyze the metabolic effects of nutritional states including feeding, fasting, and starvation</div>
+                </div>
+                <div class="objective">
+                    <div class="objective-number">6</div>
+                    <div class="objective-text">Evaluate therapeutic interventions targeting metabolic pathways</div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="section">
+            <h2>Course Schedule</h2>
+            <div style="overflow-x: auto;">
+                <table class="schedule-table">
+                    <thead>
+                        <tr>
+                            <th>Week</th>
+                            <th>Topics</th>
+                            <th>Assessment</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="week-num">1</td>
+                            <td class="topic">Introduction to Metabolism; Bioenergetics & Thermodynamics</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td class="week-num">2</td>
+                            <td class="topic">Glycolysis: Reactions, Regulation & Clinical Correlates</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td class="week-num">3</td>
+                            <td class="topic">Gluconeogenesis & Glycogen Metabolism</td>
+                            <td class="assessment">Quiz 1</td>
+                        </tr>
+                        <tr>
+                            <td class="week-num">4</td>
+                            <td class="topic">Pentose Phosphate Pathway; Fructose & Galactose Metabolism</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td class="week-num">5</td>
+                            <td class="topic">TCA Cycle: The Metabolic Hub</td>
+                            <td class="assessment">Exam 1</td>
+                        </tr>
+                        <tr>
+                            <td class="week-num">6</td>
+                            <td class="topic">Electron Transport Chain & Oxidative Phosphorylation</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td class="week-num">7</td>
+                            <td class="topic">Fatty Acid Oxidation & Ketone Body Metabolism</td>
+                            <td class="assessment">Quiz 2</td>
+                        </tr>
+                        <tr>
+                            <td class="week-num">8</td>
+                            <td class="topic">Fatty Acid & Triglyceride Synthesis</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td class="week-num">9</td>
+                            <td class="topic">Cholesterol & Lipoprotein Metabolism</td>
+                            <td class="assessment">Exam 2</td>
+                        </tr>
+                        <tr>
+                            <td class="week-num">10</td>
+                            <td class="topic">Amino Acid Catabolism & Urea Cycle</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td class="week-num">11</td>
+                            <td class="topic">Amino Acid Biosynthesis & One-Carbon Metabolism</td>
+                            <td class="assessment">Quiz 3</td>
+                        </tr>
+                        <tr>
+                            <td class="week-num">12</td>
+                            <td class="topic">Nucleotide Metabolism</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td class="week-num">13</td>
+                            <td class="topic">Metabolic Integration: Fed vs. Fasted States</td>
+                            <td class="assessment">Exam 3</td>
+                        </tr>
+                        <tr>
+                            <td class="week-num">14</td>
+                            <td class="topic">Diabetes Mellitus: Molecular Mechanisms & Treatment</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td class="week-num">15</td>
+                            <td class="topic">Inborn Errors of Metabolism; Course Integration</td>
+                            <td class="assessment">Final Exam</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        
+        <section class="section">
+            <h2>Grading</h2>
+            <div class="grading-grid">
+                <div class="grade-item">
+                    <div class="grade-percent">40%</div>
+                    <div class="grade-label">Exams (4)</div>
+                </div>
+                <div class="grade-item">
+                    <div class="grade-percent">20%</div>
+                    <div class="grade-label">Quizzes (3)</div>
+                </div>
+                <div class="grade-item">
+                    <div class="grade-percent">25%</div>
+                    <div class="grade-label">Case Studies</div>
+                </div>
+                <div class="grade-item">
+                    <div class="grade-percent">15%</div>
+                    <div class="grade-label">Participation</div>
+                </div>
+            </div>
+            <p style="margin-top: 1.5rem; font-size: 0.9rem; color: var(--text-secondary);">
+                <strong>Grading Scale:</strong> A (93–100), A- (90–92), B+ (87–89), B (83–86), B- (80–82), C+ (77–79), C (73–76), C- (70–72), D (60–69), F (&lt;60)
+            </p>
+        </section>
+        
+        <section class="section">
+            <h2>Required Materials</h2>
+            <ul>
+                <li><strong>Primary Text:</strong> Ferrier, D.R. <em>Lippincott Illustrated Reviews: Biochemistry</em>, 8th Edition</li>
+                <li><strong>Supplementary:</strong> Lieberman, M. & Peet, A. <em>Marks' Basic Medical Biochemistry: A Clinical Approach</em>, 6th Edition</li>
+                <li><strong>Online Resources:</strong> Course Canvas site, Osmosis subscription (provided)</li>
+            </ul>
+        </section>
+        
+        <section class="section">
+            <h2>Course Policies</h2>
+            
+            <div class="policy-item">
+                <h3>Attendance</h3>
+                <p>Attendance is expected at all class sessions. Medical students are held to professional standards; more than 3 unexcused absences may result in grade reduction. Please notify me in advance if you must miss class.</p>
+            </div>
+            
+            <div class="policy-item">
+                <h3>Academic Integrity</h3>
+                <p>All work must be your own. Collaboration on case studies is encouraged, but submitted work must reflect individual understanding. Violations will be referred to the Honor Code Office and may result in course failure.</p>
+            </div>
+            
+            <div class="policy-item">
+                <h3>AI Usage Policy</h3>
+                <p>AI tools (ChatGPT, Claude, etc.) may be used as study aids and for exploring concepts. However, AI-generated content may not be submitted as your own work. Using AI to complete assessments is a violation of academic integrity. See our <a href="ai-guide.html" style="color: var(--byu-navy);">AI Guide</a> for responsible use practices.</p>
+            </div>
+            
+            <div class="policy-item">
+                <h3>Disability Accommodations</h3>
+                <p>If you need accommodations, please contact the University Accessibility Center (UAC) and provide documentation within the first two weeks of class. I'm committed to ensuring all students have equal access to learning.</p>
+            </div>
+            
+            <div class="policy-item">
+                <h3>Late Work</h3>
+                <p>Case studies lose 10% per day late. Quizzes and exams cannot be made up without prior arrangement or documented emergency. Contact me as soon as possible if circumstances arise.</p>
+            </div>
+        </section>
+        
+        <section class="section">
+            <h2>A Note from Professor Skabelund</h2>
+            <p style="font-family: 'Merriweather', Georgia, serif; font-style: italic; font-size: 1.05rem; line-height: 1.8;">
+                "Metabolism is the chemistry of life — and understanding it is essential to becoming an excellent physician. My goal is not just to help you pass boards, but to give you a framework for thinking about how the body works at its most fundamental level. This understanding will serve you throughout your career, from diagnosing rare metabolic disorders to counseling patients on nutrition and lifestyle. Let's learn together."
+            </p>
+        </section>
+    </main>
+    
+    <footer>
+        &copy; 2026 Rachel Skabelund • BYU School of Medicine
+    </footer>
+    
+    <!-- Ask AI Button -->
+    <button class="ask-ai-fab" onclick="openChat()">
+        <span>🤖</span> Ask AI About Syllabus
+    </button>
+    
+    <!-- Chat Modal -->
+    <div class="chat-modal" id="chatModal">
+        <div class="chat-container">
+            <div class="chat-header">
+                <h3>💬 Ask About the Syllabus</h3>
+                <button class="chat-close" onclick="closeChat()">&times;</button>
+            </div>
+            <div class="chat-messages" id="chatMessages">
+                <div class="message assistant">
+                    Hi! I'm here to help you with questions about Professor Skabelund's Medical Metabolism course (MBIO 601). Ask me anything about the syllabus, schedule, grading, or course content!
+                </div>
+            </div>
+            <div class="typing-indicator" id="typingIndicator">
+                <div class="typing-dots">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+            <div class="chat-input-area">
+                <textarea class="chat-input" id="chatInput" placeholder="Ask a question about the syllabus..." rows="1"></textarea>
+                <button class="chat-send" id="sendBtn" onclick="sendMessage()">➤</button>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function toggleMenu() {
+            document.querySelector('.menu-toggle').classList.toggle('active');
+            document.querySelector('.nav-menu').classList.toggle('active');
+            document.querySelector('.overlay').classList.toggle('active');
+            document.body.style.overflow = document.body.style.overflow === 'hidden' ? '' : 'hidden';
+        }
+        
+        // Chat functionality
+        const chatModal = document.getElementById('chatModal');
+        const chatMessages = document.getElementById('chatMessages');
+        const chatInput = document.getElementById('chatInput');
+        const sendBtn = document.getElementById('sendBtn');
+        const typingIndicator = document.getElementById('typingIndicator');
+        
+        let conversationHistory = [];
+        
+        // Syllabus context for the AI
+        const syllabusContext = `You are a helpful AI assistant for Professor Rachel Skabelund's Medical Metabolism course (MBIO 601) at BYU School of Medicine, Fall 2026.
+
+COURSE DETAILS:
+- Course: MBIO 601 - Medical Metabolism
+- Professor: Rachel Skabelund, PhD
+- Email: rskabelund@byu.edu
+- Location: HBLL 250
+- Schedule: MWF 9:00-10:15am
+- Office Hours: TTh 2:00-4:00pm
+
+GRADING:
+- Exams (4): 40%
+- Quizzes (3): 20%
+- Case Studies: 25%
+- Participation: 15%
+- Scale: A (93-100), A- (90-92), B+ (87-89), B (83-86), B- (80-82), C+ (77-79), C (73-76), C- (70-72), D (60-69), F (<60)
+
+COURSE SCHEDULE (15 weeks):
+Week 1: Introduction to Metabolism; Bioenergetics & Thermodynamics
+Week 2: Glycolysis: Reactions, Regulation & Clinical Correlates
+Week 3: Gluconeogenesis & Glycogen Metabolism (Quiz 1)
+Week 4: Pentose Phosphate Pathway; Fructose & Galactose Metabolism
+Week 5: TCA Cycle: The Metabolic Hub (Exam 1)
+Week 6: Electron Transport Chain & Oxidative Phosphorylation
+Week 7: Fatty Acid Oxidation & Ketone Body Metabolism (Quiz 2)
+Week 8: Fatty Acid & Triglyceride Synthesis
+Week 9: Cholesterol & Lipoprotein Metabolism (Exam 2)
+Week 10: Amino Acid Catabolism & Urea Cycle
+Week 11: Amino Acid Biosynthesis & One-Carbon Metabolism (Quiz 3)
+Week 12: Nucleotide Metabolism
+Week 13: Metabolic Integration: Fed vs. Fasted States (Exam 3)
+Week 14: Diabetes Mellitus: Molecular Mechanisms & Treatment
+Week 15: Inborn Errors of Metabolism; Course Integration (Final Exam)
+
+REQUIRED MATERIALS:
+- Primary: Ferrier, D.R. "Lippincott Illustrated Reviews: Biochemistry", 8th Edition
+- Supplementary: Lieberman, M. & Peet, A. "Marks' Basic Medical Biochemistry: A Clinical Approach", 6th Edition
+- Online: Canvas site, Osmosis subscription (provided)
+
+POLICIES:
+- Attendance: Expected at all sessions; >3 unexcused absences may affect grade
+- Academic Integrity: Work must be your own; collaboration on case studies OK but submissions individual
+- AI Usage: AI tools allowed as study aids but not for submitting work as your own
+- Late Work: Case studies lose 10%/day; exams need prior arrangement
+- Accommodations: Contact UAC within first 2 weeks
+
+Answer questions helpfully and concisely. If asked about something not in the syllabus, say you don't have that information and suggest contacting Professor Skabelund directly.`;
+        
+        function openChat() {
+            chatModal.classList.add('active');
+            chatInput.focus();
+        }
+        
+        function closeChat() {
+            chatModal.classList.remove('active');
+        }
+        
+        // Close modal on escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && chatModal.classList.contains('active')) {
+                closeChat();
+            }
+        });
+        
+        // Close modal on backdrop click
+        chatModal.addEventListener('click', (e) => {
+            if (e.target === chatModal) {
+                closeChat();
+            }
+        });
+        
+        // Auto-resize textarea
+        chatInput.addEventListener('input', function() {
+            this.style.height = 'auto';
+            this.style.height = Math.min(this.scrollHeight, 120) + 'px';
+        });
+        
+        // Send on Enter (Shift+Enter for newline)
+        chatInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                sendMessage();
+            }
+        });
+        
+        function addMessage(text, role) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${role}`;
+            messageDiv.textContent = text;
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+        
+        async function sendMessage() {
+            const message = chatInput.value.trim();
+            if (!message) return;
+            
+            // Add user message
+            addMessage(message, 'user');
+            chatInput.value = '';
+            chatInput.style.height = 'auto';
+            
+            // Add to history
+            conversationHistory.push({ role: 'user', content: message });
+            
+            // Show typing indicator
+            typingIndicator.classList.add('active');
+            sendBtn.disabled = true;
+            
+            try {
+                const response = await fetch('/api/chat.js', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        messages: [
+                            { role: 'system', content: syllabusContext },
+                            ...conversationHistory
+                        ]
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (data.error) {
+                    addMessage('Sorry, I encountered an error. Please try again.', 'assistant');
+                } else {
+                    const assistantMessage = data.choices[0].message.content;
+                    addMessage(assistantMessage, 'assistant');
+                    conversationHistory.push({ role: 'assistant', content: assistantMessage });
+                }
+            } catch (error) {
+                console.error('Chat error:', error);
+                addMessage('Sorry, I couldn\'t connect to the AI service. Please try again later.', 'assistant');
+            } finally {
+                typingIndicator.classList.remove('active');
+                sendBtn.disabled = false;
+                chatInput.focus();
+            }
+        }
+    </script>
+</body>
+</html>
