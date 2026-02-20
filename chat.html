@@ -164,6 +164,87 @@
             padding: 1rem;
         }
         
+        .ai-tips-banner {
+            background: var(--byu-white);
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 46, 93, 0.1);
+            margin-bottom: 1rem;
+            overflow: hidden;
+        }
+        
+        .tips-header {
+            background: var(--byu-navy);
+            color: white;
+            padding: 0.875rem 1.25rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            user-select: none;
+        }
+        
+        .tips-header:hover {
+            background: #001a3a;
+        }
+        
+        .tips-title {
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+        
+        .tips-toggle {
+            font-size: 0.8rem;
+            transition: transform 0.3s ease;
+        }
+        
+        .tips-toggle.collapsed {
+            transform: rotate(-90deg);
+        }
+        
+        .tips-content {
+            padding: 1.25rem;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            max-height: 500px;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+        }
+        
+        .tips-content.collapsed {
+            max-height: 0;
+            padding-top: 0;
+            padding-bottom: 0;
+        }
+        
+        .tips-reminder {
+            background: #f0f4f8;
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            border-left: 4px solid var(--byu-navy);
+        }
+        
+        .tips-section {
+            margin-bottom: 0.75rem;
+        }
+        
+        .tips-section:last-child {
+            margin-bottom: 0;
+        }
+        
+        .tips-content ul {
+            margin: 0.5rem 0 0 1.25rem;
+            padding: 0;
+        }
+        
+        .tips-content li {
+            margin-bottom: 0.35rem;
+        }
+        
+        .tips-content li:last-child {
+            margin-bottom: 0;
+        }
+        
         .chat-container {
             flex: 1;
             display: flex;
@@ -360,6 +441,35 @@
     </nav>
     
     <main>
+        <div class="ai-tips-banner" id="tipsBanner">
+            <div class="tips-header" onclick="toggleTips()">
+                <span class="tips-title">🩺 AI for Medical Students — Quick Tips</span>
+                <span class="tips-toggle" id="tipsToggle">▼</span>
+            </div>
+            <div class="tips-content" id="tipsContent">
+                <p class="tips-reminder"><strong>Remember:</strong> AI is a powerful learning tool, not a replacement for clinical judgment or verified medical resources.</p>
+                
+                <div class="tips-section">
+                    <strong>Use AI effectively:</strong>
+                    <ul>
+                        <li><strong>Be specific</strong> — Include context (patient scenario, learning objective, exam type)</li>
+                        <li><strong>Ask for reasoning</strong> — "Explain why" helps you learn, not just get answers</li>
+                        <li><strong>Verify everything</strong> — Cross-reference with UpToDate, textbooks, or faculty</li>
+                        <li><strong>Practice clinically</strong> — Use AI to quiz yourself, generate differentials, or explain concepts</li>
+                    </ul>
+                </div>
+                
+                <div class="tips-section">
+                    <strong>Don't use AI to:</strong>
+                    <ul>
+                        <li>Make real patient care decisions</li>
+                        <li>Replace studying primary sources</li>
+                        <li>Submit AI-generated work as your own</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
         <div class="chat-container">
             <div class="chat-header">AI Assistant</div>
             <div class="chat-messages" id="chatMessages">
@@ -390,6 +500,22 @@
             document.querySelector('.overlay').classList.toggle('active');
             document.body.style.overflow = document.body.style.overflow === 'hidden' ? '' : 'hidden';
         }
+        
+        function toggleTips() {
+            const content = document.getElementById('tipsContent');
+            const toggle = document.getElementById('tipsToggle');
+            const isCollapsed = content.classList.toggle('collapsed');
+            toggle.classList.toggle('collapsed', isCollapsed);
+            sessionStorage.setItem('tips_collapsed', isCollapsed);
+        }
+        
+        // Restore tips state on load
+        (function() {
+            if (sessionStorage.getItem('tips_collapsed') === 'true') {
+                document.getElementById('tipsContent').classList.add('collapsed');
+                document.getElementById('tipsToggle').classList.add('collapsed');
+            }
+        })();
         
         const chatMessages = document.getElementById('chatMessages');
         const chatInput = document.getElementById('chatInput');
