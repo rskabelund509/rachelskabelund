@@ -1,0 +1,1148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@300;400;500;600;700&family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet">
+    <title>Mastering AI — BYU School of Medicine</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --byu-navy: #002E5D;
+            --byu-navy-light: #003d7a;
+            --byu-white: #FFFFFF;
+            --cream: #FAFAFA;
+            --warm-gray: #F5F5F3;
+            --text-primary: #1a1a1a;
+            --text-secondary: #555;
+            --text-muted: #888;
+            --accent: #002E5D;
+            --accent-light: #e8eef5;
+            --gold: #C4A35A;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: 'Libre Franklin', -apple-system, sans-serif;
+            color: var(--text-primary);
+            line-height: 1.7;
+            background: var(--byu-white);
+        }
+        
+        /* Header */
+        header {
+            background: var(--byu-navy);
+            padding: 1rem 2rem;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0, 46, 93, 0.15);
+        }
+        
+        .header-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .header-brand {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .logo {
+            height: 40px;
+            width: auto;
+        }
+        
+        .header-text {
+            color: var(--byu-white);
+            font-family: 'Libre Franklin', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 400;
+            letter-spacing: 0.02em;
+        }
+        
+        .menu-toggle {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            width: 28px;
+            height: 24px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+            z-index: 1001;
+        }
+        
+        .menu-toggle span {
+            width: 100%;
+            height: 3px;
+            background: var(--byu-white);
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+        
+        .menu-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(6px, 6px);
+        }
+        
+        .menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+        
+        .menu-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(6px, -6px);
+        }
+        
+        .nav-menu {
+            position: fixed;
+            top: 0;
+            right: -300px;
+            width: 300px;
+            height: 100vh;
+            background: var(--byu-navy);
+            padding: 80px 2rem 2rem;
+            transition: right 0.3s ease;
+            z-index: 1000;
+            box-shadow: -4px 0 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .nav-menu.active {
+            right: 0;
+        }
+        
+        .nav-menu ul {
+            list-style: none;
+        }
+        
+        .nav-menu li {
+            margin-bottom: 1rem;
+        }
+        
+        .nav-menu a {
+            color: var(--byu-white);
+            text-decoration: none;
+            font-size: 1.2rem;
+            padding: 0.75rem 0;
+            display: block;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.2s ease;
+        }
+        
+        .nav-menu a:hover {
+            padding-left: 0.5rem;
+            border-bottom-color: rgba(255, 255, 255, 0.4);
+        }
+        
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 999;
+        }
+        
+        .overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        /* Hero */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(165deg, var(--byu-navy) 0%, #001a3a 100%);
+            padding: 120px 2rem 80px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            opacity: 0.5;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .hero-badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.9);
+            padding: 0.5rem 1.25rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .hero h1 {
+            font-family: 'Merriweather', Georgia, serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: var(--byu-white);
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.35rem;
+            color: rgba(255, 255, 255, 0.85);
+            font-weight: 300;
+            line-height: 1.7;
+            max-width: 600px;
+            margin: 0 auto 2.5rem;
+        }
+        
+        .hero-quote {
+            font-family: 'Merriweather', Georgia, serif;
+            font-size: 1.1rem;
+            font-style: italic;
+            color: rgba(255, 255, 255, 0.7);
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            padding-top: 2rem;
+            max-width: 550px;
+            margin: 0 auto;
+        }
+        
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            animation: bounce 2s infinite;
+        }
+        
+        .scroll-indicator::after {
+            content: '↓';
+            font-size: 1.2rem;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(10px); }
+        }
+        
+        /* Sections */
+        section {
+            padding: 100px 2rem;
+        }
+        
+        .section-inner {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .section-number {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--byu-navy);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-bottom: 1rem;
+            opacity: 0.7;
+        }
+        
+        h2 {
+            font-family: 'Merriweather', Georgia, serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.75rem;
+            line-height: 1.3;
+        }
+        
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            margin-bottom: 2.5rem;
+            font-weight: 400;
+        }
+        
+        p {
+            margin-bottom: 1.5rem;
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+        
+        strong {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+        
+        /* Alternating backgrounds */
+        .section-light {
+            background: var(--byu-white);
+        }
+        
+        .section-cream {
+            background: var(--warm-gray);
+        }
+        
+        /* Callout boxes */
+        .callout {
+            background: var(--accent-light);
+            border-left: 4px solid var(--byu-navy);
+            padding: 1.5rem 2rem;
+            border-radius: 0 12px 12px 0;
+            margin: 2rem 0;
+        }
+        
+        .callout p:last-child {
+            margin-bottom: 0;
+        }
+        
+        .callout-gold {
+            background: linear-gradient(135deg, #faf6ed 0%, #f5f0e3 100%);
+            border-left-color: var(--gold);
+        }
+        
+        /* Code/prompt examples */
+        .example-block {
+            margin: 2rem 0;
+        }
+        
+        .example-label {
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .example-label.bad {
+            color: #c53030;
+        }
+        
+        .example-label.good {
+            color: #2f855a;
+        }
+        
+        .example-content {
+            background: #1a1a2e;
+            color: #e2e8f0;
+            padding: 1.5rem;
+            border-radius: 12px;
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            overflow-x: auto;
+        }
+        
+        .example-content.bad {
+            background: #2d1f1f;
+            border: 1px solid rgba(197, 48, 48, 0.3);
+        }
+        
+        .example-content.good {
+            background: #1a2e1a;
+            border: 1px solid rgba(47, 133, 90, 0.3);
+        }
+        
+        /* Tables */
+        .table-wrapper {
+            overflow-x: auto;
+            margin: 2rem 0;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 46, 93, 0.08);
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--byu-white);
+        }
+        
+        th {
+            background: var(--byu-navy);
+            color: var(--byu-white);
+            padding: 1rem 1.25rem;
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        
+        td {
+            padding: 1rem 1.25rem;
+            border-bottom: 1px solid #eee;
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+        }
+        
+        tr:last-child td {
+            border-bottom: none;
+        }
+        
+        tr:hover td {
+            background: var(--accent-light);
+        }
+        
+        /* Lists */
+        ul, ol {
+            margin: 1.5rem 0;
+            padding-left: 1.5rem;
+        }
+        
+        li {
+            margin-bottom: 0.75rem;
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+        }
+        
+        /* Principle boxes */
+        .principle {
+            background: var(--byu-navy);
+            color: var(--byu-white);
+            padding: 2rem 2.5rem;
+            border-radius: 16px;
+            margin: 2.5rem 0;
+            text-align: center;
+        }
+        
+        .principle p {
+            color: rgba(255, 255, 255, 0.95);
+            font-family: 'Merriweather', Georgia, serif;
+            font-size: 1.25rem;
+            font-style: italic;
+            margin: 0;
+            line-height: 1.6;
+        }
+        
+        /* Try this boxes */
+        .try-this {
+            background: linear-gradient(135deg, #f0f7ff 0%, #e8f2ff 100%);
+            border: 2px dashed var(--byu-navy);
+            border-radius: 16px;
+            padding: 2rem;
+            margin: 2.5rem 0;
+        }
+        
+        .try-this-label {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--byu-navy);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .try-this-content {
+            font-family: 'Merriweather', Georgia, serif;
+            font-size: 1rem;
+            color: var(--text-primary);
+            line-height: 1.7;
+            font-style: italic;
+        }
+        
+        /* Checklist */
+        .checklist {
+            background: var(--byu-white);
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 46, 93, 0.08);
+            margin: 2rem 0;
+        }
+        
+        .checklist-title {
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+        
+        .checklist ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .checklist li {
+            padding-left: 2rem;
+            position: relative;
+            margin-bottom: 0.75rem;
+        }
+        
+        .checklist li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--byu-navy);
+            font-weight: 700;
+        }
+        
+        /* Agency section special styling */
+        .agency-section {
+            background: linear-gradient(165deg, var(--byu-navy) 0%, #001a3a 100%);
+            color: var(--byu-white);
+        }
+        
+        .agency-section h2 {
+            color: var(--byu-white);
+        }
+        
+        .agency-section .section-subtitle {
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        .agency-section p {
+            color: rgba(255, 255, 255, 0.85);
+        }
+        
+        .agency-section strong {
+            color: var(--byu-white);
+        }
+        
+        .agency-section .table-wrapper {
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .agency-section th {
+            background: rgba(255, 255, 255, 0.15);
+        }
+        
+        .agency-section td {
+            background: rgba(255, 255, 255, 0.05);
+            color: rgba(255, 255, 255, 0.9);
+            border-bottom-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .agency-section tr:hover td {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .agency-section .principle {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        /* Closing section */
+        .closing {
+            text-align: center;
+            padding: 120px 2rem;
+            background: var(--warm-gray);
+        }
+        
+        .closing h2 {
+            margin-bottom: 1.5rem;
+        }
+        
+        .closing p {
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .closing-cta {
+            margin-top: 3rem;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: var(--byu-navy);
+            color: var(--byu-white);
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 46, 93, 0.3);
+        }
+        
+        .btn:hover {
+            background: var(--byu-navy-light);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 46, 93, 0.4);
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--byu-navy);
+            color: rgba(255, 255, 255, 0.7);
+            text-align: center;
+            padding: 2rem;
+            font-size: 0.9rem;
+        }
+        
+        /* Mobile responsive */
+        @media (max-width: 768px) {
+            header {
+                padding: 0.75rem 1rem;
+            }
+            
+            .header-brand {
+                gap: 0.75rem;
+            }
+            
+            .logo {
+                height: 32px;
+            }
+            
+            .header-text {
+                font-size: 0.85rem;
+            }
+            
+            .hero {
+                padding: 100px 1.5rem 60px;
+                min-height: auto;
+            }
+            
+            .hero h1 {
+                font-size: 2.25rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .hero-quote {
+                font-size: 0.95rem;
+            }
+            
+            .scroll-indicator {
+                display: none;
+            }
+            
+            section {
+                padding: 60px 1.5rem;
+            }
+            
+            h2 {
+                font-size: 1.85rem;
+            }
+            
+            .section-subtitle {
+                font-size: 1.05rem;
+            }
+            
+            p, li {
+                font-size: 1rem;
+            }
+            
+            .principle {
+                padding: 1.5rem;
+            }
+            
+            .principle p {
+                font-size: 1.1rem;
+            }
+            
+            .example-content {
+                font-size: 0.85rem;
+                padding: 1rem;
+            }
+            
+            th, td {
+                padding: 0.75rem;
+                font-size: 0.85rem;
+            }
+            
+            .nav-menu {
+                width: 260px;
+                right: -260px;
+            }
+            
+            .closing {
+                padding: 80px 1.5rem;
+            }
+        }
+        
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-inner">
+            <div class="header-brand">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Brigham_Young_University_medallion.svg/1200px-Brigham_Young_University_medallion.svg.png" alt="BYU Logo" class="logo">
+                <span class="header-text">School of Medicine</span>
+            </div>
+            <button class="menu-toggle" aria-label="Menu" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+    
+    <div class="overlay" onclick="toggleMenu()"></div>
+    
+    <nav class="nav-menu">
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="alex.html">Patient (Alex)</a></li>
+            <li><a href="chat.html">AI Chat</a></li>
+            <li><a href="ai-guide.html">AI Guide</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">A Guide for Medical Students</div>
+            <h1>Mastering AI in Medicine</h1>
+            <p class="hero-subtitle">Understanding how to wield AI effectively isn't just a tech skill — it's becoming a clinical competency. This guide will transform how you learn, study, and prepare for your calling as a healer.</p>
+            <p class="hero-quote">"AI won't replace doctors. But doctors who understand AI will have capabilities those who don't simply can't match."</p>
+        </div>
+        <div class="scroll-indicator">Begin</div>
+    </section>
+
+    <!-- Section 1: The Mirror -->
+    <section class="section-light">
+        <div class="section-inner fade-in">
+            <div class="section-number">Part One</div>
+            <h2>The #1 Mistake Everyone Makes</h2>
+            <p class="section-subtitle">Why does AI give me generic answers?</p>
+            
+            <p>Here's the truth most people never realize: <strong>AI is a mirror.</strong> Vague questions get vague answers. Specific, context-rich questions get expert-level responses.</p>
+            
+            <div class="example-block">
+                <div class="example-label bad">❌ What most students type</div>
+                <div class="example-content bad">"What causes chest pain?"</div>
+            </div>
+            
+            <div class="example-block">
+                <div class="example-label good">✓ What power users type</div>
+                <div class="example-content good">"I'm a second-year medical student studying for Step 1. Explain the differential diagnosis for acute chest pain in a 55-year-old male with diabetes and hypertension, organized by most likely etiology. Include the key distinguishing features for each."</div>
+            </div>
+            
+            <p>The second prompt gives AI the context to tailor its response to <strong>your</strong> level, <strong>your</strong> purpose, and <strong>your</strong> specific scenario.</p>
+            
+            <div class="callout">
+                <p><strong>💡 The Rule:</strong> Treat AI like a brilliant colleague who just walked into the room. They're incredibly capable, but they don't know your situation yet. The more context you provide, the more useful they become.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 2: Personal Tutor -->
+    <section class="section-cream">
+        <div class="section-inner fade-in">
+            <div class="section-number">Part Two</div>
+            <h2>AI as Your Personal Tutor</h2>
+            <p class="section-subtitle">Accelerate your learning — don't skip it</p>
+            
+            <p>Here's the mindset shift that separates students who thrive from those who struggle:</p>
+            
+            <p><strong>❌ Replacement mindset:</strong> "AI can write my notes and answer questions so I don't have to learn."</p>
+            
+            <p><strong>✓ Acceleration mindset:</strong> "AI can explain things 15 different ways until one clicks, quiz me relentlessly, and help me build understanding faster than ever before."</p>
+            
+            <p><strong>AI is the most patient teacher you'll ever have.</strong> It will explain the Krebs cycle using a pizza delivery analogy if that's what helps. It will generate 50 practice questions at 2am without complaining. It will break down a complex paper paragraph by paragraph until you actually understand it.</p>
+            
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Without AI</th>
+                            <th>With AI (Used Well)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Read the chapter, hope it sticks</td>
+                            <td>Read the chapter, then ask AI to quiz you and explain gaps</td>
+                        </tr>
+                        <tr>
+                            <td>Re-read highlighted notes passively</td>
+                            <td>Ask AI to generate clinical vignettes from your notes</td>
+                        </tr>
+                        <tr>
+                            <td>Struggle alone with confusing concepts</td>
+                            <td>Get instant, personalized explanations until it clicks</td>
+                        </tr>
+                        <tr>
+                            <td>Passive review before exams</td>
+                            <td>Active retrieval practice on demand, any time</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <p><strong>The key insight:</strong> AI doesn't learn for you — it creates more opportunities for <em>you</em> to learn. Every explanation you request, every quiz you take, every "explain that differently" builds understanding that passive reading never will.</p>
+            
+            <div class="try-this">
+                <div class="try-this-label">💡 Try This Today</div>
+                <div class="try-this-content">"I just learned about [topic] but I'm shaky on it. First, quiz me with 5 questions to see what I actually know. Then explain the concepts I got wrong using simple analogies. Finally, give me 3 more questions to confirm I understand."</div>
+            </div>
+            
+            <p>That single prompt creates a complete active learning cycle that would have taken hours to set up manually.</p>
+        </div>
+    </section>
+
+    <!-- Section 3: Not All AI -->
+    <section class="section-light">
+        <div class="section-inner fade-in">
+            <div class="section-number">Part Three</div>
+            <h2>Not All AI Is Created Equal</h2>
+            <p class="section-subtitle">Understanding model differences</p>
+            
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Model Tier</th>
+                            <th>Best For</th>
+                            <th>Think of it as...</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>GPT-4 / Claude Opus</strong></td>
+                            <td>Complex reasoning, nuanced analysis, research synthesis</td>
+                            <td>Attending physician</td>
+                        </tr>
+                        <tr>
+                            <td><strong>GPT-4o / Claude Sonnet</strong></td>
+                            <td>Balanced speed + intelligence, daily study use</td>
+                            <td>Senior resident</td>
+                        </tr>
+                        <tr>
+                            <td><strong>GPT-3.5 / Smaller models</strong></td>
+                            <td>Quick facts, simple lookups, basic questions</td>
+                            <td>Medical student</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <p><strong>Why this matters:</strong> Using a lightweight model for complex differential diagnosis is like asking a first-year to run a tumor board. Match the tool to the task.</p>
+            
+            <div class="callout">
+                <p><strong>Pro tip:</strong> If an AI gives you a shallow answer, it might not be the prompt — it might be the model. Try a more capable one before rewriting your question.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 4: Context Window -->
+    <section class="section-cream">
+        <div class="section-inner fade-in">
+            <div class="section-number">Part Four</div>
+            <h2>The Context Window</h2>
+            <p class="section-subtitle">Your secret weapon for better responses</p>
+            
+            <p>The "context window" is how much information AI can hold in memory during a conversation. Think of it as working memory — the bigger it is, the more information AI can reference at once.</p>
+            
+            <ul>
+                <li><strong>Small context window</strong> = AI forgets earlier parts of your conversation</li>
+                <li><strong>Large context window</strong> = AI can reference an entire lecture, paper, or case study</li>
+            </ul>
+            
+            <p><strong>How to use this strategically:</strong></p>
+            
+            <ol>
+                <li><strong>Paste in source material</strong> — Give the AI your lecture notes, a paper abstract, or detailed case information</li>
+                <li><strong>Keep important info near the end</strong> — AI pays more attention to recent messages</li>
+                <li><strong>Start fresh for new topics</strong> — Old context can confuse new questions</li>
+            </ol>
+            
+            <div class="try-this">
+                <div class="try-this-label">⚡ Power Move</div>
+                <div class="try-this-content">"Here are my notes from today's cardiology lecture: [paste notes]. Now quiz me on the key concepts with clinical vignette-style questions similar to Step 1."</div>
+            </div>
+            
+            <p>You just created a personalized study tool that knows exactly what you learned today.</p>
+        </div>
+    </section>
+
+    <!-- Section 5: Feed It Sources -->
+    <section class="section-light">
+        <div class="section-inner fade-in">
+            <div class="section-number">Part Five</div>
+            <h2>Feed It Sources, Get Better Answers</h2>
+            <p class="section-subtitle">AI doesn't know what it doesn't know</p>
+            
+            <p>AI models have knowledge cutoffs and can "hallucinate" — confidently stating incorrect information. The solution? <strong>Give it the source material.</strong></p>
+            
+            <div class="example-block">
+                <div class="example-label bad">❌ Instead of asking</div>
+                <div class="example-content bad">"What's the latest treatment for HFrEF?"</div>
+            </div>
+            
+            <div class="example-block">
+                <div class="example-label good">✓ Try this</div>
+                <div class="example-content good">"Based on the 2023 ACC/AHA heart failure guidelines (which I'll paste below), summarize the first-line treatments for HFrEF and explain the evidence level for each. [paste guideline excerpt]"</div>
+            </div>
+            
+            <p>Now the AI is synthesizing real, current information — not guessing from training data that might be outdated.</p>
+            
+            <div class="callout">
+                <p><strong>Sources to feed AI:</strong></p>
+                <ul style="margin-bottom: 0;">
+                    <li>Lecture slides or transcripts</li>
+                    <li>UpToDate summaries</li>
+                    <li>Paper abstracts or full text</li>
+                    <li>Clinical guidelines</li>
+                    <li>Your own notes</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 6: Verify -->
+    <section class="section-cream">
+        <div class="section-inner fade-in">
+            <div class="section-number">Part Six</div>
+            <h2>Always Verify</h2>
+            <p class="section-subtitle">The trust but verify rule</p>
+            
+            <p><strong>AI is confident. That doesn't mean it's correct.</strong></p>
+            
+            <p>AI will never say "I don't know" with uncertainty in its voice. It delivers wrong answers with the same confidence as right ones. This is one of its most dangerous characteristics.</p>
+            
+            <p><strong>Your verification toolkit:</strong></p>
+            
+            <ul>
+                <li>🔍 <strong>Web search</strong> — Sanity check facts and statistics</li>
+                <li>📚 <strong>UpToDate</strong> — Gold standard for clinical questions</li>
+                <li>📖 <strong>Primary sources</strong> — PubMed, original guidelines</li>
+                <li>👩‍⚕️ <strong>Faculty & attendings</strong> — When stakes are high</li>
+            </ul>
+            
+            <div class="principle">
+                <p>The more consequential the information, the more important verification becomes. Studying for an exam? Verify key facts. Real patient care? Never rely on AI alone.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 7: Agency -->
+    <section class="agency-section">
+        <div class="section-inner fade-in">
+            <div class="section-number" style="color: rgba(255,255,255,0.6);">Part Seven</div>
+            <h2>Your Agency Is Sacred</h2>
+            <p class="section-subtitle">Don't outsource it to a machine</p>
+            
+            <p>As students at BYU, you understand agency differently than most. It's not just about independence or autonomy — it's a divine gift. The ability to act, to choose, to reason, and to bear responsibility for those choices is central to who you are and who you're becoming.</p>
+            
+            <p>AI can't want things. It can't care about outcomes. It has no conscience, no accountability, and no growth. When you delegate your thinking entirely to a machine, you're not just being lazy — you're stepping back from the very thing that makes you <em>you</em>.</p>
+            
+            <div class="principle">
+                <p>"Use AI to inform your choices, never to make them for you."</p>
+            </div>
+            
+            <p><strong>Think of any task as three parts:</strong></p>
+            
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Stage</th>
+                            <th>Who Owns It</th>
+                            <th>Example</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>The Beginning</strong><br>Defining the problem, setting direction</td>
+                            <td>YOU</td>
+                            <td>"What's actually going on with this patient?"</td>
+                        </tr>
+                        <tr>
+                            <td><strong>The Middle</strong><br>Research, drafting, synthesizing options</td>
+                            <td>AI excels here</td>
+                            <td>"Generate a differential, summarize this paper"</td>
+                        </tr>
+                        <tr>
+                            <td><strong>The End</strong><br>Final judgment, decisions, responsibility</td>
+                            <td>YOU</td>
+                            <td>"Here's what I think and why."</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <p>When you let AI handle the beginning and the end, you become a passive relay station. Information flows through you, but you never actually <em>engage</em> with it. This is how you end up unable to explain your own reasoning.</p>
+            
+            <p><strong>Remember:</strong> You will stand in front of patients, families, and colleagues who trust <em>your</em> judgment. AI can help you prepare for that moment. But when it arrives, the choice — and the responsibility — will always be yours.</p>
+            
+            <p>The goal isn't to think less. It's to think <em>better</em>. AI serves that purpose. But the thinking? That's yours. Guard it.</p>
+        </div>
+    </section>
+
+    <!-- Section 8: Misconceptions -->
+    <section class="section-light">
+        <div class="section-inner fade-in">
+            <div class="section-number">Part Eight</div>
+            <h2>Common Misconceptions</h2>
+            <p class="section-subtitle">Myths that hold students back</p>
+            
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Myth</th>
+                            <th>Reality</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>"AI will give me the right answer"</td>
+                            <td>AI gives you <em>an</em> answer. Correctness is your job to verify.</td>
+                        </tr>
+                        <tr>
+                            <td>"Longer prompts are annoying"</td>
+                            <td>AI loves context. More detail = dramatically better responses.</td>
+                        </tr>
+                        <tr>
+                            <td>"AI is cheating"</td>
+                            <td>AI is a tool, like a calculator. Using it wisely is a skill worth developing.</td>
+                        </tr>
+                        <tr>
+                            <td>"I can just copy AI responses"</td>
+                            <td>AI is a drafting partner. Your judgment must refine the output.</td>
+                        </tr>
+                        <tr>
+                            <td>"All AI chatbots are basically the same"</td>
+                            <td>Models vary wildly in capability. Choosing the right tool matters.</td>
+                        </tr>
+                        <tr>
+                            <td>"AI knows the latest research"</td>
+                            <td>AI has knowledge cutoffs. For recent info, provide sources yourself.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 9: Checklist -->
+    <section class="section-cream">
+        <div class="section-inner fade-in">
+            <div class="section-number">Quick Reference</div>
+            <h2>The Power User Checklist</h2>
+            <p class="section-subtitle">Use this every time you interact with AI</p>
+            
+            <div class="checklist">
+                <div class="checklist-title">✦ Before You Prompt</div>
+                <ul>
+                    <li>What's my specific goal with this interaction?</li>
+                    <li>What context does AI need to help me well?</li>
+                    <li>Am I using the right model for this task?</li>
+                </ul>
+            </div>
+            
+            <div class="checklist">
+                <div class="checklist-title">✦ In Your Prompt</div>
+                <ul>
+                    <li>State your role and level (medical student, studying for X)</li>
+                    <li>Describe the specific scenario or question</li>
+                    <li>Explain what format you want (bullets, table, explanation)</li>
+                    <li>Paste relevant source material when available</li>
+                </ul>
+            </div>
+            
+            <div class="checklist">
+                <div class="checklist-title">✦ After You Get a Response</div>
+                <ul>
+                    <li>Does this actually answer my question?</li>
+                    <li>Have I verified the critical facts?</li>
+                    <li>Can I explain this in my own words now?</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Closing -->
+    <section class="closing">
+        <div class="section-inner fade-in">
+            <h2>The Future Is Collaborative</h2>
+            <p>The best physicians of tomorrow won't be those who memorize the most — they'll be those who know how to learn, synthesize, and leverage every tool available to serve their patients.</p>
+            <p>AI is the most powerful learning tool ever created for medicine. Use it wisely. Verify relentlessly. And remember: the goal isn't to outsource your thinking. It's to amplify it.</p>
+            <p><strong>Go forward and heal.</strong></p>
+            <div class="closing-cta">
+                <a href="chat.html" class="btn">Try the AI Chat →</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Rachel Skabelund · BYU School of Medicine</p>
+    </footer>
+    
+    <script>
+        function toggleMenu() {
+            document.querySelector('.menu-toggle').classList.toggle('active');
+            document.querySelector('.nav-menu').classList.toggle('active');
+            document.querySelector('.overlay').classList.toggle('active');
+            document.body.style.overflow = document.body.style.overflow === 'hidden' ? '' : 'hidden';
+        }
+        
+        // Fade in on scroll
+        const fadeElements = document.querySelectorAll('.fade-in');
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        });
+        
+        fadeElements.forEach(el => observer.observe(el));
+    </script>
+    <script src="auth.js"></script>
+</body>
+</html>
