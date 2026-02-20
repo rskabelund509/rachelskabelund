@@ -45,6 +45,7 @@
         }
         
         .header-brand {
+            text-decoration: none;
             display: flex;
             align-items: center;
             gap: 1rem;
@@ -382,6 +383,7 @@
             }
             
             .header-brand {
+            text-decoration: none;
                 gap: 0.75rem;
             }
             
@@ -419,7 +421,7 @@
 </head>
 <body>
     <header>
-        <div class="header-brand">
+        <a href="index.html" class="header-brand">
             <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Brigham_Young_University_medallion.svg/1200px-Brigham_Young_University_medallion.svg.png" alt="BYU Logo" class="logo">
             <span class="header-text">School of Medicine</span>
         </div>
@@ -434,11 +436,11 @@
     
     <nav class="nav-menu">
         <ul>
-            <li><a href="index.html">Home</a></li>
+            <li><a href="index.html"><span class="nav-icon">🏠</span> Home</a></li>
             <li><a href="alex.html">Patient (Alex)</a></li>
-            <li><a href="chat.html">AI Chat</a></li>
-            <li><a href="ai-guide.html">AI Guide</a></li>
-            <li><a href="syllabus.html">Course Syllabus</a></li>
+            <li><a href="chat.html"><span class="nav-icon">💬</span> AI Chat</a></li>
+            <li><a href="ai-guide.html"><span class="nav-icon">📖</span> AI Guide</a></li>
+            <li><a href="syllabus.html"><span class="nav-icon">📋</span> Course Syllabus</a></li>
         </ul>
     </nav>
     
@@ -502,6 +504,16 @@
             document.querySelector('.overlay').classList.toggle('active');
             document.body.style.overflow = document.body.style.overflow === 'hidden' ? '' : 'hidden';
         }
+        
+        // Close menu on escape
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                document.querySelector('.menu-toggle').classList.remove('active');
+                document.querySelector('.nav-menu').classList.remove('active');
+                document.querySelector('.overlay').classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
         
         function toggleTips() {
             const content = document.getElementById('tipsContent');
