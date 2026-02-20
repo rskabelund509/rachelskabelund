@@ -1,4 +1,4 @@
-// Rachel's AI Chat - Vercel Serverless Function
+// Rachel's AI Chat - Vercel Serverless Function (OpenAI)
 // Edit the SYSTEM_PROMPT below to customize the AI's behavior
 
 const SYSTEM_PROMPT = `You are a helpful AI assistant on Rachel Skabelund's website. 
@@ -19,14 +19,11 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const apiKey = process.env.ANTHROPIC_API_KEY;
+  const apiKey = process.env.OPEN_AI_API_KEY;
   
   if (!apiKey) {
-    return res.status(500).json({ error: 'API key not configured', hint: 'Set ANTHROPIC_API_KEY in Vercel Environment Variables' });
+    return res.status(500).json({ error: 'API key not configured', hint: 'Set OPEN_AI_API_KEY in Vercel Environment Variables' });
   }
-  
-  // Log key prefix for debugging (safe - only shows first few chars)
-  console.log('API key prefix:', apiKey.substring(0, 10) + '...');
 
   try {
     const { messages } = req.body;
@@ -35,31 +32,35 @@ export default async function handler(req, res) {
       return res.status(400).json({ error: 'Messages array required' });
     }
 
-    const response = await fetch('https://api.anthropic.com/v1/messages', {
+    // Add system message at the start
+    const fullMessages = [
+      { role: 'system', content: SYSTEM_PROMPT },
+      ...messages
+    ];
+
+    const response = await fetch('https://api.openai.com/v1/chat/completions', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'x-api-key': apiKey,
-        'anthropic-version': '2023-06-01'
+        'Authorization': `Bearer ${apiKey}`
       },
       body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
-        max_tokens: 1024,
-        system: SYSTEM_PROMPT,
-        messages: messages
+        model: 'gpt-4o',
+        messages: fullMessages,
+        max_tokens: 1024
       })
     });
 
     if (!response.ok) {
       const error = await response.text();
-      console.error('Anthropic API error:', error);
+      console.error('OpenAI API error:', error);
       return res.status(response.status).json({ error: 'API request failed', detail: error });
     }
 
     const data = await response.json();
     
     return res.status(200).json({
-      content: data.content[0].text
+      content: data.choices[0].message.content
     });
 
   } catch (error) {
